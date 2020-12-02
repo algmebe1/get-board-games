@@ -153,12 +153,10 @@ const styles = StyleSheet.create({
   },
 
   descriptionContainer: {
-    width: '100%',
+    width: '90%',
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    paddingLeft: 20,
-    paddingRight: 20,
     marginBottom: 20
   },
 
