@@ -6,7 +6,7 @@
   "scripts": {
     "start": "nodemon ./src/index.ts",
     "debug": "node --inspect-brk src/index.ts --runInBand",
-    "test": "jest --collect-coverage --watch"
+    "test": "jest --collect-coverage --watchAll"
   },
   "keywords": [],
   "author": "",
