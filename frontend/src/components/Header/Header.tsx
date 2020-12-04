@@ -1,20 +1,37 @@
 import React from 'react'
-import { Header, Image } from 'react-native-elements'
+import { View, StyleSheet, Image, TouchableOpacity } from 'react-native'
 
 function HeaderApp () {
   return (
-      <Header
-          centerComponent={<Image
-              source={{ uri: 'https://trello-attachments.s3.amazonaws.com/5fbbdffec6c8c916bd924758/658x652/ac356046bba2b7e2f9ff4c5429f48e12/GBG-logo-white.png' }}
-              style={{ width: 40, height: 40 }}
-                           />}
-          containerStyle={{
-            backgroundColor: 'lightblue'
-          }}
-          leftComponent={{ icon: 'menu', color: '#fff' }}
-          rightComponent={{ icon: 'person', color: '#fff' }}
-      />
+      <View style={styles.header}>
+
+          <Image
+              source={{ uri: 'https://trello-attachments.s3.amazonaws.com/5fbbdffec6c8c916bd924758/658x652/89ee36969caa01ee422982a49f59fc06/GBG-logo-white.png' }}
+              style={styles.logo}
+          />
+
+      </View>
   )
 }
+
+const styles = StyleSheet.create({
+  header: {
+    width: '100%',
+    height: 115,
+    backgroundColor: 'lightblue',
+    position: 'relative',
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    alignItems: 'flex-end'
+  },
+  logo: {
+    marginLeft: 10,
+    marginBottom: 10,
+    width: 60,
+    height: 60
+  }
+
+})
 
 export default HeaderApp
