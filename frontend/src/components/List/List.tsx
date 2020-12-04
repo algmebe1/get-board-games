@@ -1,14 +1,20 @@
 import React from 'react'
-import { Text, View, StyleSheet, ScrollView } from 'react-native'
+import { Text, View, StyleSheet, ScrollView, Button } from 'react-native'
 import BackButton from '../Header/BackButton/BackButton'
 import HomeButton from '../Header/HomeButton/HomeButton'
 
-function Marketplace () {
+function List ({ navigation }) {
   return (
       <ScrollView contentContainerStyle={{ flexGrow: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'white' }}>
           <Text>
-              Marketplace works!
+              List works!
           </Text>
+          <View>
+              <Button
+                  onPress={() => navigation.navigate('GameDetail')}
+                  title="Go to GameDetail"
+              />
+          </View>
           <View style={styles.navButtons}>
               <BackButton />
               <HomeButton />
@@ -29,4 +35,4 @@ const styles = StyleSheet.create({
   }
 })
 
-export default Marketplace
+export default List
