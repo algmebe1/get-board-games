@@ -2,8 +2,10 @@ import React from 'react'
 import { Text, View, Button, StyleSheet } from 'react-native'
 import * as Google from 'expo-google-app-auth'
 import firebase from 'firebase'
+import { connect } from 'react-redux'
+import sendUser from '../../redux/actions/userActions'
 
-function Login () {
+function Login ({ dispatch, actions }) {
   function isUserEqual (googleUser, firebaseUser) {
     if (firebaseUser) {
       const providerData = firebaseUser.providerData
@@ -57,7 +59,10 @@ function Login () {
       })
 
       if (result.type === 'success') {
+        debugger
         onSignIn(result)
+        dispatch(sendUser({ id: result.user.id, name: result.user.givenName, photoUrl: result.user.photoUrl }))
+        console.log(result)
         return result.accessToken
       } else {
         return { cancelled: true }
@@ -82,6 +87,14 @@ function Login () {
   )
 }
 
+function mapStateToProps (dispatch) {
+  return {
+    dispatch
+  }
+}
+
+export default connect(mapStateToProps)(Login)
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -90,5 +103,3 @@ const styles = StyleSheet.create({
     flexDirection: 'column'
   }
 })
-
-export default Login
