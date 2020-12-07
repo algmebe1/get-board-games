@@ -8,6 +8,8 @@ const chalk = require('chalk')
 const mongoose = require('mongoose')
 const Game = require('./models/gameSchema.ts')
 const gameRouter = require('./routes/gameRouter.ts')(Game)
+const User = require('./models/userSchema')
+const userRouter = require('./routes/userRouter')(User)
 
 const app = express()
 const port = process.env.PORT || 7777
@@ -23,6 +25,7 @@ app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
 
 app.use('/games', gameRouter)
+app.use('/users', userRouter)
 
 app.listen(port, () => {
   // eslint-disable-next-line no-console
