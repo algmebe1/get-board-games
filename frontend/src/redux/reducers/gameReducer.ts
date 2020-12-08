@@ -1,5 +1,4 @@
 /* eslint-disable no-case-declarations */
-import { debug } from 'react-native-reanimated'
 import actionTypes from '../actions/actionTypes'
 
 export default function gameReducer (state = {}, action: any) {
