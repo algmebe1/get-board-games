@@ -29,7 +29,16 @@ const styles = StyleSheet.create({
   header: {
     width: '100%',
     height: 115,
-    backgroundColor: 'lightblue'
+    backgroundColor: 'lightblue',
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 6
+    },
+    shadowOpacity: 0.37,
+    shadowRadius: 7.49,
+
+    elevation: 12
   },
 
   headerItems: {

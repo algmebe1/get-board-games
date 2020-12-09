@@ -4,7 +4,7 @@ const gameController = require('../controller/gameController')(Game)
 
 jest.mock('../models/gameSchema')
 
-describe('gameController getMethod', () => {
+describe('gameController', () => {
   describe('getMethod', () => {
     test('should call res.json without error', () => {
       const res = {
