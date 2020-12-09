@@ -1,8 +1,8 @@
-import { Response, NextFunction } from 'express'
+import { Request, Response, NextFunction } from 'express'
 export {}
 
 function gameController (Game: any) {
-  function allMiddleware (req: any, res: Response, next: NextFunction) {
+  function allMiddleware (req: Request, res: Response, next: NextFunction) {
     console.log(req)
     const { gameId } = req.params
     const query = { id: gameId }
@@ -16,7 +16,7 @@ function gameController (Game: any) {
     })
   }
 
-  function getMethod (req: any, res: Response) {
+  function getMethod (req: Request, res: Response) {
     res.json(req.game)
   }
 
