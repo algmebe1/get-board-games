@@ -128,7 +128,8 @@ function mapStateToProps ({ gameReducer }: any) {
 const styles = StyleSheet.create({
   sectionTitle: {
     fontSize: 30,
-    fontFamily: 'sans-serif-condensed'
+    fontFamily: 'sans-serif-condensed',
+    padding: 10
   },
 
   navButtons: {

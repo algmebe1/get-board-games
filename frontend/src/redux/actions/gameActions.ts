@@ -42,7 +42,7 @@ function requestAllGamesError (error: any) {
 
 export function requestGame (gameId: string) {
   return async (dispatch: Function) => {
-    const endpoint = `http://192.168.0.21:7777/games/${gameId}`
+    const endpoint = `http://192.168.1.36:7777/games/${gameId}`
     try {
       const gameItem = await axios.get(endpoint)
       dispatch(requestGameSuccess(gameItem.data))
@@ -55,7 +55,7 @@ export function requestGame (gameId: string) {
 export function requestAllGames () {
   debugger
   return async (dispatch: Function) => {
-    const endpoint = 'http://192.168.0.21:7777/games/'
+    const endpoint = 'http://192.168.1.36:7777/games/'
     try {
       debugger
       const gameCollection = await axios.get(endpoint)

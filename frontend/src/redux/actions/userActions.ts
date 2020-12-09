@@ -17,7 +17,7 @@ function sendUserError (error: any) {
 
 export function sendUser (userInfo) {
   return async (dispatch: Function) => {
-    const endpoint = 'http://192.168.0.21:7777/users/'
+    const endpoint = 'http://192.168.1.36:7777/users/'
     try {
       const userItem = await axios.post(endpoint, userInfo)
       dispatch(sendUserSuccess(userItem))
