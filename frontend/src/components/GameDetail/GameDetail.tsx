@@ -1,23 +1,28 @@
-import React from 'react'
+import React, { useEffect, useRef } from 'react'
 import { StyleSheet, ScrollView, Text, View, Image } from 'react-native'
+import { useIsFocused } from '@react-navigation/native'
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5'
 import { Button } from 'react-native-elements'
 import Icon from 'react-native-vector-icons/FontAwesome'
-import { requestGame } from '../../redux/actions/gameActions'
 import BackButton from '../Header/BackButton/BackButton'
 import { connect } from 'react-redux'
 import { props } from '../../interfaces/interfaces'
 import HomeButton from '../Header/HomeButton/HomeButton'
 
-function GameDetail ({ gameItem, dispatch }: props) {
-  debugger
-  const gameId = '6FmFeux5xH'
-  if (!gameItem) {
-    dispatch(requestGame(gameId))
-  }
+function GameDetail ({ route: { params: { gameItem } } }: props) {
+  const detailScrollRef = useRef(null)
+
+  const isFocused = useIsFocused()
+  useEffect(() => {
+    detailScrollRef.current.scrollTo({ x: 0, y: 0, animated: false })
+  }, [isFocused])
 
   return (
-      <ScrollView contentContainerStyle={{ flexGrow: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'white' }}>
+      <ScrollView
+          contentContainerStyle={{ flexGrow: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'white' }}
+          ref={detailScrollRef}
+      >
+          <View />
           <View style={styles.imageContainer}>
               <Image
                   resizeMode='contain'
@@ -51,7 +56,7 @@ function GameDetail ({ gameItem, dispatch }: props) {
                               {' '}
                               {' '}
                               {' '}
-                              {`${gameItem?.min_players} - ${gameItem?.max_players} players`}
+                              {gameItem?.min_players !== gameItem?.max_players ? `${gameItem?.min_players} - ${gameItem?.max_players} players` : `${gameItem?.min_players} players`}
                           </Text>
                       </View>
                       <View style={styles.time}>
@@ -63,7 +68,7 @@ function GameDetail ({ gameItem, dispatch }: props) {
                               {' '}
                               {' '}
                               {' '}
-                              {`${gameItem?.min_playtime} - ${gameItem?.max_playtime} min`}
+                              {gameItem?.min_playtime !== gameItem?.max_playtime ? `${gameItem?.min_playtime} - ${gameItem?.max_playtime} min` : `${gameItem.min_players} min`}
                           </Text>
                       </View>
                   </View>
