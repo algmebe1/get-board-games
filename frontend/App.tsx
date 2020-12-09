@@ -15,7 +15,7 @@ if (firebase.apps.length === 0) {
   firebase.initializeApp(firebaseConfig)
 }
 
-const store = configureStore({ gameReducer: { gameItem: {} } })
+const store = configureStore({ gameReducer: { gameItem: {}, gameCollection: [] } })
 const Stack = createStackNavigator()
 
 function App () {
@@ -23,7 +23,9 @@ function App () {
       <ReduxProvider store={store}>
           <HeaderApp />
           <NavigationContainer>
-              <Stack.Navigator screenOptions={{ headerShown: false }}>
+              <Stack.Navigator
+                  screenOptions={{ headerShown: false }}
+              >
                   <Stack.Screen
                       component={Loading}
                       name='Loading'
