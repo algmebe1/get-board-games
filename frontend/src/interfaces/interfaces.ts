@@ -12,6 +12,8 @@ export interface images {
 }
 
 export interface props {
-  gameItem: gameItem,
+  gameItem?: gameItem,
+  gameCollection?: Object[]
   dispatch: Function,
+  navigation: Object,
 }
