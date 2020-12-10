@@ -8,27 +8,55 @@ describe('gameReducer', () => {
     )
   })
 
-  test('should handle LOAD_GAME', () => {
-    const gameItem = { name: 'Skylab mola!' }
-    expect(reducer({}, {
-      type: actionTypes.LOAD_GAME,
-      gameItem
-    })).toEqual(
-      {
-        gameObject: gameItem
-      }
-    )
+  describe('for a single game...', () => {
+    test('should handle LOAD_GAME', () => {
+      const gameItem = { name: 'Skylab mola!' }
+      expect(reducer({}, {
+        type: actionTypes.LOAD_GAME,
+        gameItem
+      })).toEqual(
+        {
+          gameObject: gameItem
+        }
+      )
+    })
+
+    test('should handle LOAD_GAME_ERROR', () => {
+      const error = { error: 'error 404' }
+      expect(reducer({}, {
+        type: actionTypes.LOAD_GAME_ERROR,
+        error
+      })).toEqual(
+        {
+          gameArray: error
+        }
+      )
+    })
   })
 
-  test('should handle LOAD_GAME_ERROR', () => {
-    const error = { error: 'error 404' }
-    expect(reducer({}, {
-      type: actionTypes.LOAD_GAME_ERROR,
-      error
-    })).toEqual(
-      {
-        gameObject: error
-      }
-    )
+  describe('for an array of games', () => {
+    test('should handle LOAD_ALL_GAMES', () => {
+      const gameCollection = [{ rank: 1 }, { rank: 2 }]
+      expect(reducer({}, {
+        type: actionTypes.LOAD_ALL_GAMES,
+        gameCollection
+      })).toEqual(
+        {
+          gameArray: gameCollection
+        }
+      )
+    })
+
+    test('should handle LOAD_ALL_GAMES_ERROR', () => {
+      const error = [{ error: 'error 404' }]
+      expect(reducer({}, {
+        type: actionTypes.LOAD_ALL_GAMES_ERROR,
+        error
+      })).toEqual(
+        {
+          error: [{ error: 'error 404' }]
+        }
+      )
+    })
   })
 })
