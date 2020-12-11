@@ -16,4 +16,6 @@ export interface props {
   gameCollection?: Object[]
   dispatch: Function,
   navigation: Object,
+  userItem?: any,
+  user?: any
 }
