@@ -4,7 +4,9 @@ interface actionTypesStore {
   LOAD_ALL_GAMES: string,
   LOAD_ALL_GAMES_ERROR: string,
   SEND_USER: string,
-  SEND_USER_ERROR: string
+  SEND_USER_ERROR: string,
+  LOGIN_USER_GOOGLE: string,
+  LOGIN_USER_GOOGLE_ERROR: string
 }
 
 const actionTypes: actionTypesStore = {
@@ -13,7 +15,9 @@ const actionTypes: actionTypesStore = {
   LOAD_ALL_GAMES: 'LOAD_ALL_GAMES',
   LOAD_ALL_GAMES_ERROR: 'LOAD_ALL_GAMES_ERROR',
   SEND_USER: 'SEND_USER',
-  SEND_USER_ERROR: 'SEND_USER_ERROR'
+  SEND_USER_ERROR: 'SEND_USER_ERROR',
+  LOGIN_USER_GOOGLE: 'LOGIN_USER_GOOGLE',
+  LOGIN_USER_GOOGLE_ERROR: 'LOGIN_USER_GOOGLE_ERROR'
 }
 
 export default actionTypes
