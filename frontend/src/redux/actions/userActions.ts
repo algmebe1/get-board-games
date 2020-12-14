@@ -2,6 +2,27 @@ import axios from 'axios'
 import actionTypes from './actionTypes'
 import signInWithGoogle from '../../../firebase.js'
 
+function loginGoogleSuccess (user: Object) {
+  return {
+    type: actionTypes.LOGIN_USER_GOOGLE,
+    user
+  }
+}
+
+export function logoutUser (userObject: Object) {
+  return {
+    type: actionTypes.LOGOUT_USER,
+    userObject
+  }
+}
+
+function loadUserSuccess (userItem: Object) {
+  return {
+    type: actionTypes.LOAD_USER,
+    userItem
+  }
+}
+
 function sendUserSuccess (userItem: Object) {
   return {
     type: actionTypes.SEND_USER,
@@ -9,23 +30,9 @@ function sendUserSuccess (userItem: Object) {
   }
 }
 
-function sendUserError (error: any) {
+function loadError (error: any) {
   return {
-    type: actionTypes.SEND_USER_ERROR,
-    error
-  }
-}
-
-function loggingGoogleSuccess (user: Object) {
-  return {
-    type: actionTypes.LOGIN_USER_GOOGLE,
-    user
-  }
-}
-
-function loggingGoogleError (error: any) {
-  return {
-    type: actionTypes.LOGIN_USER_GOOGLE_ERROR,
+    type: actionTypes.LOAD_ERROR,
     error
   }
 }
@@ -34,22 +41,44 @@ export function loginGoogle () {
   return async (dispatch: Function) => {
     try {
       const { user } = await signInWithGoogle()
-      console.log(user)
-      dispatch(loggingGoogleSuccess(user))
+      dispatch(loginGoogleSuccess(user))
     } catch (error) {
-      dispatch(loggingGoogleError(error))
+      dispatch(loadError(error))
     }
   }
 }
 
-export function sendUser (userInfo) {
+export function loadUser (userId: Object) {
+  return async (dispatch: Function) => {
+    const endpoint = `http://192.168.0.21:7777/users/${userId}`
+    try {
+      const userItem = await axios.get(endpoint)
+      dispatch(loadUserSuccess(userItem.data))
+    } catch (error) {
+      dispatch(loadError(error))
+    }
+  }
+}
+
+export function sendUser (userInfo: Object) {
   return async (dispatch: Function) => {
     const endpoint = 'http://192.168.0.21:7777/users/'
     try {
       const userItem = await axios.post(endpoint, userInfo)
       dispatch(sendUserSuccess(userItem.data))
     } catch (error) {
-      dispatch(sendUserError(error))
+      dispatch(loadError(error))
+    }
+  }
+}
+
+export function saveUserChanges (userId: Object, userDetails: Object) {
+  return async (dispatch: Function) => {
+    const endpoint = `http://192.168.0.21:7777/users/${userId}`
+    try {
+      const userItem = await axios.patch(endpoint, userDetails)
+    } catch (error) {
+      dispatch(loadError(error))
     }
   }
 }
