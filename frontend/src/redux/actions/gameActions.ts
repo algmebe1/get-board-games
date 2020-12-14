@@ -9,23 +9,7 @@ function requestGameSuccess (gameItem: Object) {
   }
 }
 
-function requestGameError (error: any) {
-  return {
-    type: actionTypes.LOAD_GAME_ERROR,
-    error
-  }
-}
-
 export function requestAllGamesSuccess (gameCollection: Array) {
-  // gameCollection.sort(function (a: any, b: any) {
-  //   if (a.rank > b.rank) {
-  //     return 1
-  //   }
-  //   if (a.rank < b.rank) {
-  //     return -1
-  //   }
-  //   return 0
-  // })
   gameCollection.sort((a: any, b:any) => a.rank - b.rank)
 
   return {
@@ -34,21 +18,21 @@ export function requestAllGamesSuccess (gameCollection: Array) {
   }
 }
 
-function requestAllGamesError (error: any) {
+function loadError (error: any) {
   return {
-    type: actionTypes.LOAD_ALL_GAMES_ERROR,
+    type: actionTypes.LOAD_GAME_ERROR,
     error
   }
 }
 
 export function requestGame (gameId: string) {
   return async (dispatch: Function) => {
-    const endpoint = `http://192.168.0.21:7777/games/${gameId}`
+    const endpoint = `http://192.168.1.36:7777/games/${gameId}`
     try {
       const gameItem = await axios.get(endpoint)
       dispatch(requestGameSuccess(gameItem.data))
     } catch (error) {
-      dispatch(requestGameError(error))
+      dispatch(loadError(error))
     }
   }
 }
@@ -63,7 +47,7 @@ export function requestAllGames () {
       debugger
       dispatch(requestAllGamesSuccess(gameCollection.data))
     } catch (error) {
-      dispatch(requestAllGamesError(error))
+      dispatch(loadError(error))
     }
   }
 }
