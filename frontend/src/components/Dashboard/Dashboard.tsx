@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { Text, View, StyleSheet } from 'react-native'
 import { connect } from 'react-redux'
 import { props } from '../../interfaces/interfaces'
@@ -10,27 +10,22 @@ const styles = StyleSheet.create({
   }
 })
 
-function Dashboard ({ userItem }: props) {
-  useEffect(() => {
-    console.log('Useeffect:', userItem)
-  }, [userItem])
+function Dashboard ({ userObject }: props) {
   return (
       <View style={styles.body}>
 
           <Text>
-              {userItem?.name}
+              {userObject?.name}
           </Text>
 
       </View>
   )
 }
 
-function mapStateToProps (state: any) {
-  console.log('\n\nMAPSTATETOPROPS: ')
-  console.log(state)
-
+function mapStateToProps ({ userReducer }: any) {
   return {
-    userItem: state?.userReducer?.userObject
+    userObject: userReducer?.userObject
+
   }
 }
 
