@@ -7,6 +7,10 @@ function userRouter (User: any) {
 
   const user = userController(User)
 
+  router.route('/:userId')
+    .get(user.getMethod)
+    .patch(user.patchMethod)
+
   router.route('/')
     .post(user.postMethod)
 
