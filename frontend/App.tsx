@@ -16,7 +16,7 @@ if (firebase.apps.length === 0) {
   firebase.initializeApp(firebaseConfig)
 }
 
-const store = configureStore({ gameReducer: { gameItem: {}, gameCollection: [] }, userReducer: { user: {}, userItem: {} } })
+const store = configureStore({ gameReducer: { gameItem: {}, gameCollection: [] }, userReducer: { user: {} } })
 const Stack = createStackNavigator()
 
 function App () {
