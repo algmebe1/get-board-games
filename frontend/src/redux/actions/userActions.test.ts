@@ -34,7 +34,7 @@ describe('userActions', () => {
       axios.post = jest.fn().mockRejectedValueOnce(testData)
       await store.dispatch(userActions.sendUser(userId))
 
-      expect(store.getActions()[0].type).toBe(actionTypes.SEND_USER_ERROR)
+      expect(store.getActions()[0].type).toBe(actionTypes.LOAD_ERROR)
     })
   })
 })

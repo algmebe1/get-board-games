@@ -34,7 +34,7 @@ describe('gameActions', () => {
 
       axios.get = jest.fn().mockRejectedValueOnce(testData)
       await store.dispatch(gameActions.requestGame(gameId))
-      expect(store.getActions()[0].type).toBe(actionTypes.LOAD_GAME_ERROR)
+      expect(store.getActions()[0].type).toBe(actionTypes.LOAD_ERROR)
     })
   })
 
@@ -60,7 +60,7 @@ describe('gameActions', () => {
     test('resolved an return an object with property data', async () => {
       axios.get = jest.fn().mockRejectedValueOnce(testData)
       await store.dispatch(gameActions.requestAllGames())
-      expect(store.getActions()[0].type).toBe(actionTypes.LOAD_ALL_GAMES_ERROR)
+      expect(store.getActions()[0].type).toBe(actionTypes.LOAD_ERROR)
     })
   })
 
