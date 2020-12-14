@@ -4,23 +4,21 @@ import actionTypes from '../actions/actionTypes'
 export default function userReducer (state = {}, action: any):any {
   let newState
   switch (action.type) {
-    case actionTypes.SEND_USER:
+    case actionTypes.LOAD_USER:
       newState = { ...state, userObject: action.userItem }
       break
-
-    case actionTypes.SEND_USER_ERROR:
-      newState = { ...state, error: action.error }
+    case actionTypes.SEND_USER:
+      newState = { ...state, userObject: action.userItem }
       break
     case actionTypes.LOGIN_USER_GOOGLE:
       newState = { ...state, user: action.user }
       break
-
-    case actionTypes.LOGIN_USER_GOOGLE_ERROR:
-      newState = { ...state, error: action.error }
+    case actionTypes.LOGOUT_USER:
+      newState = { ...state, userObject: null }
       break
 
     default:
-      newState = state
+      newState = { ...state }
   }
   return newState
 }
