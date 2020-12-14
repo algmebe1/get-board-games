@@ -21,10 +21,10 @@ describe('gameReducer', () => {
       )
     })
 
-    test('should handle LOAD_GAME_ERROR', () => {
+    test('should handle LOAD_ERROR', () => {
       const error = { error: 'error 404' }
       expect(reducer({}, {
-        type: actionTypes.LOAD_GAME_ERROR,
+        type: actionTypes.LOAD_ERROR,
         error
       })).toEqual(
         {
@@ -43,18 +43,6 @@ describe('gameReducer', () => {
       })).toEqual(
         {
           gameArray: gameCollection
-        }
-      )
-    })
-
-    test('should handle LOAD_ALL_GAMES_ERROR', () => {
-      const error = [{ error: 'error 404' }]
-      expect(reducer({}, {
-        type: actionTypes.LOAD_ALL_GAMES_ERROR,
-        error
-      })).toEqual(
-        {
-          error: [{ error: 'error 404' }]
         }
       )
     })
