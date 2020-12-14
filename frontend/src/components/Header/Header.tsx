@@ -1,13 +1,13 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { View, StyleSheet, Image, TouchableOpacity } from 'react-native'
 import { connect } from 'react-redux'
 import { props } from '../../interfaces/interfaces'
 import firebase from 'firebase'
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5'
 import * as RootNavigation from '../Application/RootNavigation.js'
-import { sendUser } from '../../redux/actions/userActions'
+import { logoutUser } from '../../redux/actions/userActions'
 
-function HeaderApp ({ userItem, dispatch }: props) {
+function HeaderApp ({ userObject, dispatch }: props) {
   return (
       <View style={styles.header}>
           <View style={styles.headerItems}>
@@ -16,19 +16,19 @@ function HeaderApp ({ userItem, dispatch }: props) {
                   source={{ uri: 'https://trello-attachments.s3.amazonaws.com/5fbbdffec6c8c916bd924758/658x652/89ee36969caa01ee422982a49f59fc06/GBG-logo-white.png' }}
                   style={styles.logo}
               />
-              {userItem?.id
+              {userObject
                 ? (<View style={styles.userOptions}>
                     <TouchableOpacity
-                        onPress={() => RootNavigation.navigate('Profile', { userItem })}
+                        onPress={() => RootNavigation.navigate('Profile', { userObject })}
                     >
                         <Image
-                            source={{ uri: userItem?.photoUrl }}
+                            source={{ uri: userObject?.photoUrl }}
                             style={{ width: 40, height: 40, borderRadius: 20, marginRight: 10 }}
                         />
                     </TouchableOpacity>
                     <TouchableOpacity onPress={() => {
                       firebase.auth().signOut()
-                      dispatch(sendUser(null))
+                      dispatch(logoutUser(userObject))
                       RootNavigation.navigate('LoginWithGoogle')
                     }}
                     >
@@ -45,9 +45,9 @@ function HeaderApp ({ userItem, dispatch }: props) {
   )
 }
 
-function mapStateToProps (state: any) {
+function mapStateToProps ({ userReducer }: any) {
   return {
-    userItem: state?.userReducer?.userObject
+    userObject: userReducer?.userObject
   }
 }
 
