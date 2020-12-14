@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { View, Text, Button, StyleSheet } from 'react-native'
 import { connect } from 'react-redux'
-import { loginGoogle, sendUser } from '../../redux/actions/userActions'
+import { loginGoogle, sendUser, loadUser } from '../../redux/actions/userActions'
 
 function LoginWithGoogle ({ dispatch, user, navigation }: props) {
   function handleLoggingClick () {
@@ -10,6 +10,7 @@ function LoginWithGoogle ({ dispatch, user, navigation }: props) {
   useEffect(() => {
     if (user.id) {
       dispatch(sendUser({ id: user?.id, name: user?.name, photoUrl: user?.photoUrl }))
+      dispatch(loadUser(user?.id))
       navigation.navigate('Application', { screen: 'Dashboard' })
     } else {
       navigation.navigate('LoginWithGoogle')
