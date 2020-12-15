@@ -16,6 +16,21 @@ export interface props {
   gameCollection?: Object[]
   dispatch: Function,
   navigation: Object,
-  userItem?: any,
-  user?: any
+  user: user,
+  userObject: userObject
+}
+
+export interface userObject {
+  _id: string,
+  id: string,
+  name: string,
+  photoUrl: string,
+  username: string,
+  location: string,
+  bio: string,
+  favourites: Object[]
+}
+
+export interface user {
+  id: string
 }

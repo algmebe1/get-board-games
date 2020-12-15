@@ -33,6 +33,7 @@ module.exports = {
     'react/jsx-filename-extension': [1, { extensions: ['.tsx', '.ts'] }],
     'react/jsx-no-literals': 'off',
     'react/forbid-component-props': 'off',
-    'react/jsx-max-depth': 'off'
+    'react/jsx-max-depth': 'off',
+    'react/jsx-no-bind': 'off'
   }
 }

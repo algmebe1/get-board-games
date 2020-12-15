@@ -72,4 +72,62 @@ describe('gameActions', () => {
       expect(result.gameCollection).toEqual([{ rank: 1 }, { rank: 2 }])
     })
   })
+  describe('addGame', () => {
+    let testData = null
+    let store = null
+    const newObj = [{ id: '12345' }]
+
+    beforeEach(() => {
+      testData = { bio: 'Skylab mola!' }
+      store = mockStore()
+    })
+
+    afterEach(() => {
+      jest.resetAllMocks()
+    })
+    test('should call to axios.patch function without issues', async () => {
+      const userObject = { favourites: [{ name: 'Skylab mol!' }] }
+      const gameItem = { id: '12345' }
+
+      axios.patch = jest.fn()
+
+      await store.dispatch(gameActions.addGame(userObject, gameItem))
+      expect(axios.patch).toHaveBeenCalled()
+    })
+    test('should call to axios.patch function with issues', async () => {
+      const userObject = {
+        favourites: [
+          { id: '1' },
+          { id: '2' },
+          { id: '3' },
+          { id: '4' },
+          { id: '5' }
+        ]
+      }
+      const gameItem = { id: '12345' }
+
+      axios.patch = jest.fn()
+
+      await store.dispatch(gameActions.addGame(userObject, gameItem))
+      expect(axios.patch).toHaveBeenCalled()
+    })
+    test('rejected and call loadError function', async () => {
+      const userObject = {
+        favourites: [
+          { id: '1' },
+          { id: '2' },
+          { id: '3' },
+          { id: '4' },
+          { id: '5' }
+        ]
+      }
+      const gameItem = { id: '12345' }
+
+      axios.patch = jest.fn().mockRejectedValue({})
+
+      await store.dispatch(gameActions.addGame(userObject, gameItem))
+
+      expect(store.getActions()[0].type).toBe(actionTypes.LOAD_ERROR)
+    })
+  })
 })
