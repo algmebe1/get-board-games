@@ -77,6 +77,7 @@ export function saveUserChanges (userId: Object, userDetails: Object) {
     const endpoint = `http://192.168.0.21:7777/users/${userId}`
     try {
       const userItem = await axios.patch(endpoint, userDetails)
+      console.log((userItem))
     } catch (error) {
       dispatch(loadError(error))
     }
