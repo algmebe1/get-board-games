@@ -2,19 +2,20 @@
 import actionTypes from '../actions/actionTypes'
 
 export default function gameReducer (state = {}, action: any) {
-  debugger
+  let newState
   switch (action.type) {
     case actionTypes.LOAD_GAME:
-      const loadGameState = { ...state, gameObject: action.gameItem }
-      return loadGameState
+      newState = { ...state, gameObject: action.gameItem }
+      break
     case actionTypes.LOAD_ALL_GAMES:
-      const loadAllGamesState = { ...state, gameArray: action.gameCollection }
-      return loadAllGamesState
+      newState = { ...state, gameArray: action.gameCollection }
+      break
     case actionTypes.LOAD_ERROR:
-      const loadError = { ...state, error: action.error }
-      return loadError
+      newState = { ...state, error: action.error }
+      break
 
     default:
-      return state
+      newState = { ...state }
   }
+  return newState
 }
