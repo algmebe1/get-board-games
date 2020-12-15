@@ -28,7 +28,9 @@ describe('gameReducer', () => {
         error
       })).toEqual(
         {
-          gameArray: error
+          error: {
+            error: 'error 404'
+          }
         }
       )
     })
