@@ -11,6 +11,9 @@ function userRouter (User: any) {
     .get(user.getMethod)
     .patch(user.patchMethod)
 
+  router.route('/favourites/:userId')
+    .patch(user.addToFavourites)
+
   router.route('/')
     .post(user.postMethod)
 

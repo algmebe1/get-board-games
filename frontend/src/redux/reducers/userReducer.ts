@@ -16,6 +16,9 @@ export default function userReducer (state = {}, action: any):any {
     case actionTypes.LOGOUT_USER:
       newState = { ...state, userObject: null }
       break
+    case actionTypes.LOAD_ERROR:
+      newState = { ...state, error: action.error }
+      break
 
     default:
       newState = { ...state }

@@ -81,6 +81,24 @@ function Profile ({ user, userObject, dispatch }: props) {
               <Text style={{ fontStyle: 'italic', fontSize: 10 }}>
                   My favourite games:
               </Text>
+              <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-around', alignItems: 'center', width: '100%', height: '100%', alignSelf: 'center' }}>
+                  {userObject?.favourites.map((gameItem: any) => (
+                      <View
+                          key={gameItem?.id}
+                          style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%', margin: 0, justifyContent: 'center' }}
+                      >
+                          <Image
+                              resizeMode='contain'
+                              source={{ uri: gameItem?.images?.small }}
+                              style={{ width: 75, height: 75 }}
+                          />
+
+                          <Text style={{ fontSize: 10, fontWeight: 'bold' }}>
+                              {gameItem?.name}
+                          </Text>
+                      </View>
+                  ))}
+              </View>
           </View>
       </View>
   )
@@ -147,6 +165,8 @@ const styles = StyleSheet.create({
     elevation: 5
   },
   favGames: {
+    display: 'flex',
+    flexDirection: 'column',
     backgroundColor: 'white',
     width: '90%',
     height: 150,
@@ -164,6 +184,8 @@ const styles = StyleSheet.create({
 })
 
 function mapStateToProps ({ userReducer }: any) {
+  console.log('*********************************', userReducer.userObject)
+
   return {
     user: userReducer?.user,
     userObject: userReducer?.userObject

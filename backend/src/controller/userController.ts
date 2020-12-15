@@ -6,7 +6,7 @@ function userController (User: any) {
     const { userId } = req.params
     const query = { id: userId }
 
-    User.findOne(query, (error: any, currentUser: any) => {
+    User.findOne(query).populate('favourites').exec((error: any, currentUser: any) => {
       error ? res.send(error) : res.json(currentUser)
     })
   }
@@ -30,7 +30,27 @@ function userController (User: any) {
     })
   }
 
-  return { getMethod, patchMethod, postMethod }
+  async function addToFavourites (req: Request, res: Response) {
+    try {
+      const query = { id: req.params.userId }
+      const favourites = req.body.favourites
+      console.log(req.body)
+      const gameIds = favourites.map(game => {
+        console.log(game)
+
+        return game._id
+      })
+
+      const updatedUser = await User.findOneAndUpdate(query, { favourites: gameIds }, { new: true }).populate('favourites')
+      res.status(200)
+      return res.json(updatedUser)
+    } catch (error) {
+      res.status(409)
+      return res.send(error)
+    }
+  }
+
+  return { getMethod, patchMethod, postMethod, addToFavourites }
 }
 
 module.exports = userController

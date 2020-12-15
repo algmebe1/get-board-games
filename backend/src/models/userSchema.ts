@@ -8,7 +8,7 @@ const userSchema = new Schema({
   location: { type: String },
   photoUrl: { type: String },
   bio: { type: String },
-  favourites: [{ type: Schema.Types.ObjectId, ref: 'games' }],
+  favourites: [{ type: Schema.Types.ObjectId, ref: 'Games' }],
   events: [{ type: Schema.Types.ObjectId, ref: 'events' }]
 })
 

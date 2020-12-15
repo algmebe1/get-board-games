@@ -8,8 +8,9 @@ import BackButton from '../Header/BackButton/BackButton'
 import { connect } from 'react-redux'
 import { props } from '../../interfaces/interfaces'
 import HomeButton from '../Header/HomeButton/HomeButton'
+import { addGame } from '../../redux/actions/gameActions'
 
-function GameDetail ({ route: { params: { gameItem } } }: props) {
+function GameDetail ({ route: { params: { gameItem } }, userObject, dispatch }: props) {
   const detailScrollRef = useRef(null)
 
   const isFocused = useIsFocused()
@@ -81,7 +82,11 @@ function GameDetail ({ route: { params: { gameItem } } }: props) {
                                   size={15}
                               />
   }
+                          onPress={() => {
+                            dispatch(addGame(userObject, gameItem))
+                          }}
                           style={styles.addButton}
+
                           title="  Add to favourites"
                       />
                   </View>
@@ -92,10 +97,11 @@ function GameDetail ({ route: { params: { gameItem } } }: props) {
   )
 }
 
-function mapStateToProps ({ gameReducer }: any) {
+function mapStateToProps ({ gameReducer, userReducer }: any) {
   debugger
   return {
-    gameItem: gameReducer.gameObject
+    gameItem: gameReducer.gameObject,
+    userObject: userReducer.userObject
   }
 }
 
