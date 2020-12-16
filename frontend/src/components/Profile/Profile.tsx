@@ -122,9 +122,9 @@ const styles = StyleSheet.create({
 })
 
 function Profile ({ user, userObject, dispatch }: propsInterface) {
-  const [valueUsername, onChangeTextUsername] = useState('' || userObject.username)
-  const [valueBio, onChangeTextUserBio] = useState('' || userObject.bio)
-  const [valueCity, onChangeTextCity] = useState('' || userObject.location)
+  const [valueUsername, onChangeTextUsername] = useState('' || userObject?.username)
+  const [valueBio, onChangeTextUserBio] = useState('' || userObject?.bio)
+  const [valueCity, onChangeTextCity] = useState('' || userObject?.location)
 
   useEffect(() => {
     dispatch(loadUser(user.id))
@@ -135,7 +135,7 @@ function Profile ({ user, userObject, dispatch }: propsInterface) {
           <View style={styles.imageContainer}>
 
               <Image
-                  source={{ uri: userObject.photoUrl }}
+                  source={{ uri: userObject?.photoUrl }}
                   style={{ width: 150, height: 150 }}
               />
               <View style={styles.personalInfo}>
@@ -153,7 +153,7 @@ function Profile ({ user, userObject, dispatch }: propsInterface) {
                       </Text>
                       <Text style={{ fontWeight: 'bold', fontSize: 12 }}>
 
-                          {userObject.name}
+                          {userObject?.name}
                       </Text>
                   </View>
                   <View style={styles.cityContainer}>
@@ -188,7 +188,7 @@ function Profile ({ user, userObject, dispatch }: propsInterface) {
 
               <Button
                   onPress={() => {
-                    dispatch(saveUserChanges(userObject._id, { username: valueUsername, location: valueCity, bio: valueBio }))
+                    dispatch(saveUserChanges(userObject?._id, { username: valueUsername, location: valueCity, bio: valueBio }))
                   }}
                   title="Save changes"
               />
