@@ -35,6 +35,9 @@ module.exports = {
     'react/forbid-component-props': 'off',
     'react/jsx-max-depth': 'off',
     'react/jsx-no-bind': 'off',
-    'multiline-ternary': 'off'
+    'multiline-ternary': 'off',
+    'react/no-multi-comp': 'off',
+    'react/prop-types': 'off',
+    'react/display-name': 'off'
   }
 }
