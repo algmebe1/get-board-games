@@ -1,7 +1,7 @@
 import React from 'react'
 import { Text, View, StyleSheet } from 'react-native'
 import { connect } from 'react-redux'
-import { props } from '../../interfaces/interfaces'
+import { propsInterface } from '../../interfaces/interfaces'
 
 const styles = StyleSheet.create({
   body: {
@@ -10,12 +10,16 @@ const styles = StyleSheet.create({
   }
 })
 
-function Dashboard ({ userObject }: props) {
+function Dashboard ({ userObject }: propsInterface) {
   return (
       <View style={styles.body}>
 
           <Text>
+              Welcome
+              {' '}
+              {' '}
               {userObject?.name}
+              !
           </Text>
 
       </View>
