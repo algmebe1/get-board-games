@@ -38,13 +38,10 @@ export function requestGame (gameId: string) {
 }
 
 export function requestAllGames () {
-  debugger
   return async (dispatch: Function) => {
     const endpoint = 'http://192.168.0.21:7777/games/'
     try {
-      debugger
       const gameCollection = await axios.get(endpoint)
-      debugger
       dispatch(requestAllGamesSuccess(gameCollection.data))
     } catch (error) {
       dispatch(loadError(error))
@@ -66,8 +63,7 @@ export function addGame (userObject: Object, gameItem: Object) {
     const newObj = addGameToFav(userObject, gameItem)
     const endpoint = `http://192.168.0.21:7777/users/favourites/${newObj.id}`
     try {
-      const objectUpdated = await axios.patch(endpoint, { favourites: newObj.favourites })
-      console.log(objectUpdated)
+      await axios.patch(endpoint, { favourites: newObj.favourites })
     } catch (error) {
       dispatch(loadError(error))
     }

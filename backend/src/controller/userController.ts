@@ -34,10 +34,7 @@ function userController (User: any) {
     try {
       const query = { id: req.params.userId }
       const favourites = req.body.favourites
-      console.log(req.body)
       const gameIds = favourites.map(game => {
-        console.log(game)
-
         return game._id
       })
 

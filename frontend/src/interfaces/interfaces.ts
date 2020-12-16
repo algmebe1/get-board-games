@@ -1,6 +1,16 @@
-export interface gameItem {
+export interface gameItemInterface {
+  id: string,
   name: string,
   images: images,
+  description_preview: string,
+  min_players: number,
+  max_players: number,
+  min_playtime: number,
+  max_playtime: number
+}
+
+export interface navigationInterface {
+  navigate: Function
 }
 
 export interface images {
@@ -11,13 +21,14 @@ export interface images {
   original: string,
 }
 
-export interface props {
-  gameItem?: gameItem,
+export interface propsInterface {
+  gameItem?: gameItemInterface,
   gameCollection?: Object[]
   dispatch: Function,
-  navigation: Object,
+  navigation: navigationInterface,
   user: user,
-  userObject: userObject
+  userObject: userObject,
+  route: { params: {gameItem: gameItemInterface}}
 }
 
 export interface userObject {

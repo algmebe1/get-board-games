@@ -13,7 +13,6 @@ export default function gameReducer (state = {}, action: any) {
     case actionTypes.LOAD_ERROR:
       newState = { ...state, error: action.error }
       break
-
     default:
       newState = { ...state }
   }
