@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Text, View, Image, StyleSheet, TextInput, Button } from 'react-native'
 import { connect } from 'react-redux'
 import { saveUserChanges, loadUser } from '../../redux/actions/userActions'
-import { props } from '../../interfaces/interfaces'
+import { propsInterface } from '../../interfaces/interfaces'
 
 const styles = StyleSheet.create({
 
@@ -121,7 +121,7 @@ const styles = StyleSheet.create({
   }
 })
 
-function Profile ({ user, userObject, dispatch }: props) {
+function Profile ({ user, userObject, dispatch }: propsInterface) {
   const [valueUsername, onChangeTextUsername] = useState('' || userObject.username)
   const [valueBio, onChangeTextUserBio] = useState('' || userObject.bio)
   const [valueCity, onChangeTextCity] = useState('' || userObject.location)
