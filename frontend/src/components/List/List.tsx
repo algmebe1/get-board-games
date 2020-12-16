@@ -2,12 +2,96 @@ import React, { useRef } from 'react'
 import { Text, View, StyleSheet, ScrollView, TouchableOpacity, Image } from 'react-native'
 import BackButton from '../Header/BackButton/BackButton'
 import { connect } from 'react-redux'
-import { props } from '../../interfaces/interfaces'
+import { propsInterface } from '../../interfaces/interfaces'
 import { requestAllGames } from '../../redux/actions/gameActions'
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5'
 import LoadingSpinner from '../LoadingSpinner/LoadingSpinner'
 
-function List ({ gameCollection, dispatch, navigation }: props) {
+const styles = StyleSheet.create({
+  sectionTitle: {
+    fontSize: 30,
+    fontFamily: 'sans-serif-condensed',
+    padding: 10
+  },
+
+  navButtons: {
+    width: '90%',
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginTop: 20,
+    marginBottom: 20
+  },
+  gameList: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    width: '100%'
+  },
+  gameView: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    backgroundColor: 'white',
+    marginTop: 10
+  },
+  gameContainer: {
+    padding: 20,
+    borderBottomColor: 'black',
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    width: '100%'
+  },
+  gameInfo: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    flexShrink: 1,
+    width: '80%',
+    paddingLeft: 10
+  },
+  gameTitle: {
+    textAlign: 'center',
+    marginBottom: 10,
+    fontSize: 15,
+    fontWeight: 'bold',
+    fontFamily: 'Roboto'
+  },
+  gameDescription: {
+    flexShrink: 1,
+    fontSize: 12,
+    color: '#595959'
+  },
+
+  gameDetails: {
+    flex: 1,
+    flexDirection: 'row',
+    marginTop: 10
+  },
+
+  players: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  time: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  playersText: {
+    fontSize: 12
+  },
+  timeText: {
+    fontSize: 12
+  }
+})
+
+function List ({ gameCollection, dispatch, navigation }: propsInterface) {
   if (!gameCollection || gameCollection?.length === 0) {
     dispatch(requestAllGames())
   }
@@ -38,7 +122,7 @@ function List ({ gameCollection, dispatch, navigation }: props) {
                         {gameCollection?.map((gameItem) => (
                             <View
                                 key={gameItem.id}
-                                style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', backgroundColor: 'white', marginTop: 10 }}
+                                style={styles.gameView}
                             >
                                 <TouchableOpacity
                                     onPress={() => {
@@ -56,7 +140,6 @@ function List ({ gameCollection, dispatch, navigation }: props) {
                                     <View style={styles.gameInfo}>
                                         <Text
                                             style={styles.gameTitle}
-                                            textStyle={{ fontFamily: 'TitanOne' }}
                                         >
                                             {gameItem.name}
                                         </Text>
@@ -119,87 +202,9 @@ function List ({ gameCollection, dispatch, navigation }: props) {
 }
 
 function mapStateToProps ({ gameReducer }: any) {
-  debugger
   return {
     gameCollection: gameReducer.gameArray
   }
 }
-
-const styles = StyleSheet.create({
-  sectionTitle: {
-    fontSize: 30,
-    fontFamily: 'sans-serif-condensed',
-    padding: 10
-  },
-
-  navButtons: {
-    width: '90%',
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginTop: 20,
-    marginBottom: 20
-  },
-  gameList: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    width: '100%'
-  },
-  gameContainer: {
-    padding: 20,
-    borderBottomColor: 'black',
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    width: '100%'
-  },
-  gameInfo: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    flexShrink: 1,
-    width: '80%',
-    paddingLeft: 10
-  },
-  gameTitle: {
-    textAlign: 'center',
-    marginBottom: 10,
-    fontSize: 15,
-    fontWeight: 'bold',
-    fontFamily: 'Roboto'
-  },
-  gameDescription: {
-    flexShrink: 1,
-    fontSize: 12,
-    color: '#595959'
-  },
-
-  gameDetails: {
-    flex: 1,
-    flexDirection: 'row',
-    marginTop: 10
-  },
-
-  players: {
-    flex: 1,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center'
-  },
-  time: {
-    flex: 1,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center'
-  },
-  playersText: {
-    fontSize: 12
-  },
-  timeText: {
-    fontSize: 12
-  }
-})
 
 export default connect(mapStateToProps)(List)
