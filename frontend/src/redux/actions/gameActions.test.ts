@@ -94,23 +94,6 @@ describe('gameActions', () => {
       await store.dispatch(gameActions.addGame(userObject, gameItem))
       expect(axios.patch).toHaveBeenCalled()
     })
-    test('should call to axios.patch function with issues', async () => {
-      const userObject = {
-        favourites: [
-          { id: '1' },
-          { id: '2' },
-          { id: '3' },
-          { id: '4' },
-          { id: '5' }
-        ]
-      }
-      const gameItem = { id: '12345' }
-
-      axios.patch = jest.fn()
-
-      await store.dispatch(gameActions.addGame(userObject, gameItem))
-      expect(axios.patch).toHaveBeenCalled()
-    })
     test('rejected and call loadError function', async () => {
       const userObject = {
         favourites: [
