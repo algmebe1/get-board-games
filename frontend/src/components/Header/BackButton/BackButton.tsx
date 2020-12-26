@@ -4,12 +4,13 @@ import { CommonActions, useNavigation } from '@react-navigation/native'
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5'
 
 function BackButton () {
-  const nav = useNavigation()
+  const { dispatch } = useNavigation()
   return (
       <View >
           <TouchableOpacity
-              onPress={() => nav.dispatch(CommonActions.goBack())}
+              onPress={() => dispatch(CommonActions.goBack())}
               style={styles.backContainer}
+              testID="goBackButton"
           >
               <FontAwesome5
                   name='arrow-left'

@@ -1,15 +1,55 @@
 import React from 'react'
-import { View, StyleSheet, Image, TouchableOpacity } from 'react-native'
+import { View, StyleSheet, Image, TouchableOpacity, StatusBar } from 'react-native'
 import { connect } from 'react-redux'
-import { props } from '../../interfaces/interfaces'
+import { propsInterface } from '../../interfaces/interfaces'
 import firebase from 'firebase'
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5'
 import * as RootNavigation from '../Application/RootNavigation.js'
 import { logoutUser } from '../../redux/actions/userActions'
 
-function HeaderApp ({ userObject, dispatch }: props) {
+const styles = StyleSheet.create({
+  header: {
+    width: '100%',
+    height: 100,
+    backgroundColor: 'lightblue',
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 6
+    },
+    shadowOpacity: 0.37,
+    shadowRadius: 7.49,
+
+    elevation: 12
+  },
+
+  headerItems: {
+    display: 'flex',
+    width: '95%',
+    height: '100%',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center'
+  },
+
+  logo: {
+    marginLeft: 10,
+    width: 60,
+    height: 60
+  },
+
+  userOptions: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center'
+  }
+
+})
+
+function HeaderApp ({ userObject, dispatch }: propsInterface) {
   return (
       <View style={styles.header}>
+          <StatusBar hidden />
           <View style={styles.headerItems}>
 
               <Image
@@ -38,7 +78,8 @@ function HeaderApp ({ userObject, dispatch }: props) {
                             style={{ color: 'white' }}
                         />
                     </TouchableOpacity>
-                   </View>) : null}
+                   </View>)
+                : null}
           </View>
 
       </View>
@@ -50,45 +91,5 @@ function mapStateToProps ({ userReducer }: any) {
     userObject: userReducer?.userObject
   }
 }
-
-const styles = StyleSheet.create({
-  header: {
-    width: '100%',
-    height: 115,
-    backgroundColor: 'lightblue',
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 6
-    },
-    shadowOpacity: 0.37,
-    shadowRadius: 7.49,
-
-    elevation: 12
-  },
-
-  headerItems: {
-    display: 'flex',
-    width: '95%',
-    height: '100%',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginTop: 20
-  },
-
-  logo: {
-    marginLeft: 10,
-    width: 60,
-    height: 60
-  },
-
-  userOptions: {
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'center'
-  }
-
-})
 
 export default connect(mapStateToProps)(HeaderApp)

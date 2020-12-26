@@ -7,7 +7,7 @@ import { Provider as ReduxProvider } from 'react-redux'
 import { NavigationContainer } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
 import configureStore from './src/redux/configureStore'
-import { navigationRef } from './src/components/Application/RootNavigation.js'
+import { navigationRef } from './src/components/Application/RootNavigation'
 
 import { firebaseConfig } from './src/config'
 import firebase from 'firebase'

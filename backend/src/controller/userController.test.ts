@@ -147,4 +147,46 @@ describe('userController', () => {
       expect(res.send).toHaveBeenCalled()
     })
   })
+
+  describe('deleteMethod', () => {
+    test('should call res.json without error', async () => {
+      const req = { params: { userId: '12345' }, body: { favourites: [{ name: 'Skylab mola!' }] } }
+      const res = {
+        json: jest.fn()
+      }
+
+      User.findByIdAndUpdate = jest.fn().mockReturnValueOnce({
+        populate: jest.fn().mockReturnValueOnce({
+          populate: jest.fn().mockReturnValueOnce({
+            exec: jest.fn().mockImplementationOnce((callback) => {
+              callback(false, {})
+            })
+          })
+        })
+      })
+
+      await userController.deleteMethod(req, res)
+      expect(res.json).toHaveBeenCalled()
+    })
+
+    test('should call res.send due to an error', async () => {
+      const req = { params: { userId: '12345' }, body: { favourites: [{ name: 'Skylab mola!' }] } }
+      const res = {
+        send: jest.fn()
+      }
+
+      User.findByIdAndUpdate = jest.fn().mockReturnValueOnce({
+        populate: jest.fn().mockReturnValueOnce({
+          populate: jest.fn().mockReturnValueOnce({
+            exec: jest.fn().mockImplementationOnce((callback) => {
+              callback(true, {})
+            })
+          })
+        })
+      })
+
+      await userController.deleteMethod(req, res)
+      expect(res.send).toHaveBeenCalled()
+    })
+  })
 })

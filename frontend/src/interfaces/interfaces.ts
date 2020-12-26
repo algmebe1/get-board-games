@@ -27,11 +27,11 @@ export interface propsInterface {
   dispatch: Function,
   navigation: navigationInterface,
   user: user,
-  userObject: userObject,
+  userObject: userObjectInterface,
   route: { params: {gameItem: gameItemInterface}}
 }
 
-export interface userObject {
+export interface userObjectInterface {
   _id: string,
   id: string,
   name: string,
@@ -39,7 +39,7 @@ export interface userObject {
   username: string,
   location: string,
   bio: string,
-  favourites: Object[]
+  favourites: {id: string, name: string, rank: number}[]
 }
 
 export interface user {

@@ -14,6 +14,9 @@ function userRouter (User: any) {
   router.route('/favourites/:userId')
     .patch(user.addToFavourites)
 
+  router.route('/deletefromfavourites/:userId')
+    .patch(user.deleteMethod)
+
   router.route('/')
     .post(user.postMethod)
 

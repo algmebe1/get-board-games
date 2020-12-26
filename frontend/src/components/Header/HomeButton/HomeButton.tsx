@@ -3,6 +3,14 @@ import React from 'react'
 import { TouchableOpacity, View, StyleSheet, Text } from 'react-native'
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5'
 
+const styles = StyleSheet.create({
+  homeContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center'
+  }
+})
+
 function HomeButton () {
   const navigation = useNavigation()
   return (
@@ -10,6 +18,7 @@ function HomeButton () {
           <TouchableOpacity
               onPress={() => navigation.navigate('Dashboard')}
               style={styles.homeContainer}
+              testID="toDashboard"
           >
               <Text>
                   Go Home
@@ -24,13 +33,5 @@ function HomeButton () {
       </View>
   )
 }
-
-const styles = StyleSheet.create({
-  homeContainer: {
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'center'
-  }
-})
 
 export default HomeButton

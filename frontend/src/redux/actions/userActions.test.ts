@@ -83,7 +83,7 @@ describe('userActions', () => {
     test('resolved and call axios.patch function', async () => {
       const userId = '12345'
       const userDetails = { bio: 'Skylab mola!' }
-      const endpoint = 'http://192.168.0.21:7777/users/12345'
+      const endpoint = 'http://192.168.1.36:7777/users/12345'
       axios.patch = jest.fn()
 
       await store.dispatch(userActions.saveUserChanges(userId, userDetails))
@@ -100,7 +100,6 @@ describe('userActions', () => {
   })
 
   describe('loginGoogle function should be called with a promise...', () => {
-    const testData = null
     let store = null
 
     beforeEach(() => {
@@ -124,18 +123,6 @@ describe('userActions', () => {
     })
   })
   describe('logout function should be called...', () => {
-    let store = null
-    let testData = null
-
-    beforeEach(() => {
-      store = mockStore()
-      testData = { name: 'Skylab mola!' }
-    })
-
-    afterEach(() => {
-      jest.resetAllMocks()
-    })
-
     test('without issues', () => {
       const userObject = { id: '12345' }
       const resultObject =
@@ -146,6 +133,51 @@ describe('userActions', () => {
 
       const logoutResult = userActions.logoutUser(userObject)
       expect(logoutResult).toEqual(resultObject)
+    })
+  })
+
+  describe('deleteGame', () => {
+    const testData = null
+    let store = null
+    const newObj = [{ id: '12345' }]
+
+    beforeEach(() => {
+      testdata = { bio: 'Skylab mola!' }
+      store = mockStore()
+    })
+
+    afterEach(() => {
+      jest.resetAllMocks()
+    })
+
+    test('should call to axios.patch function without issues', async () => {
+      const userObject = { favourites: [{ name: 'Skylab mola!' }] }
+      const gameItem = { id: '12345' }
+
+      axios.patch = jest.fn()
+
+      await store.dispatch(userActions.deleteGame(userObject, gameItem))
+      expect(axios.patch).toHaveBeenCalled()
+    })
+
+    test('should call to axios.patch function with issues', async () => {
+      const userObject = {
+        favourites: [
+          { id: '1' },
+          { id: '2' },
+          { id: '3' },
+          { id: '4' },
+          { id: '5' }
+        ]
+      }
+
+      const gameItem = { id: '12345' }
+
+      axios.patch = jest.fn().mockRejectedValue({})
+
+      await store.dispatch(userActions.deleteGame(userObject, gameItem))
+
+      expect(store.getActions()[0].type).toBe(actionTypes.LOAD_ERROR)
     })
   })
 })
