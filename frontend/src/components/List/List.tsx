@@ -1,6 +1,7 @@
 import React, { useRef } from 'react'
 import { Text, View, StyleSheet, ScrollView, TouchableOpacity, Image } from 'react-native'
 import BackButton from '../Header/BackButton/BackButton'
+import HomeButton from '../Header/HomeButton/HomeButton'
 import { connect } from 'react-redux'
 import { propsInterface } from '../../interfaces/interfaces'
 import { requestAllGames } from '../../redux/actions/gameActions'
@@ -22,6 +23,21 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginTop: 20,
     marginBottom: 20
+  },
+  toTopButton: {
+    width: 40,
+    height: 40,
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    position: 'absolute',
+    right: 20,
+    bottom: 100,
+    backgroundColor: 'lightgray',
+    borderRadius: 20,
+    borderColor: 'lightblue',
+    borderWidth: 2
   },
   gameList: {
     display: 'flex',
@@ -106,12 +122,14 @@ function List ({ gameCollection, dispatch, navigation }: propsInterface) {
   }
 
   return (
-      <ScrollView
-          contentContainerStyle={{ flexGrow: 1, justifyContent: 'center', alignItems: 'center' }}
-          ref={scrollRef}
-      >
+    <View>
           { gameCollection
             ? (
+              <View>
+              <ScrollView
+                  contentContainerStyle={{ flexGrow: 1, justifyContent: 'center', alignItems: 'center' }}
+                  ref={scrollRef}
+              >
                 <View style={styles.gameList}>
                     <View>
                         <Text style={styles.sectionTitle}>
@@ -182,22 +200,28 @@ function List ({ gameCollection, dispatch, navigation }: propsInterface) {
                     </View>
                     <View style={styles.navButtons}>
                         <BackButton />
-                        <TouchableOpacity
-                            onPress={toTopPress}
-                        >
-                            <FontAwesome5
-                                name="chevron-circle-up"
-                                style={{ fontSize: 25 }}
-                            />
-                        </TouchableOpacity>
+                        <HomeButton />
                     </View>
                 </View>
+              </ScrollView>
+              <View style={styles.toTopButton}>
+                <TouchableOpacity
+                    hitSlop={{ top: 20, right: 20, bottom: 20, left: 20 }}
+                    onPress={toTopPress}
+                >
+                    <FontAwesome5
+                        name="chevron-circle-up"
+                        style={{ fontSize: 25 }}
+                    />
+                </TouchableOpacity>
+              </View>
+              </View>
               ) : (
                   <View>
                       <LoadingSpinner />
                   </View>
               )}
-      </ScrollView>
+    </View>
   )
 }
 
