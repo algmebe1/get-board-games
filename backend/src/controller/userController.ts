@@ -22,6 +22,18 @@ function userController (User: any) {
     )
   }
 
+  function deleteMethod (req: Request, res: Response) {
+    console.log(req)
+    const query = req.params.userId
+    const body = req.body
+
+    User.findByIdAndUpdate(query, body, { new: true, useFindAndModify: false }).populate('favourites').populate('events').exec(
+      (error, user) => {
+        error ? res.send(error) : res.json(user)
+      }
+    )
+  }
+
   function postMethod (req: Request, res: Response) {
     const query = { id: req.body.id }
 
@@ -47,7 +59,7 @@ function userController (User: any) {
     }
   }
 
-  return { getMethod, patchMethod, postMethod, addToFavourites }
+  return { getMethod, patchMethod, deleteMethod, postMethod, addToFavourites }
 }
 
 module.exports = userController
