@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import { Text, View, Image, StyleSheet, TextInput, Button } from 'react-native'
 import { connect } from 'react-redux'
-import { saveUserChanges, loadUser } from '../../redux/actions/userActions'
+import { saveUserChanges, loadUser, deleteGame } from '../../redux/actions/userActions'
 import { propsInterface } from '../../interfaces/interfaces'
+import FontAwesome5 from 'react-native-vector-icons/FontAwesome5'
+import { TouchableOpacity } from 'react-native-gesture-handler'
 
 const styles = StyleSheet.create({
 
@@ -118,6 +120,10 @@ const styles = StyleSheet.create({
   gameNameLabel: {
     fontSize: 10,
     fontWeight: 'bold'
+  },
+  deleteButton: {
+    backgroundColor: 'white',
+    padding: 5
   }
 })
 
@@ -214,6 +220,20 @@ function Profile ({ user, userObject, dispatch }: propsInterface) {
                           <Text style={styles.gameNameLabel}>
                               {gameItem?.name}
                           </Text>
+                          <View style={styles.deleteButton}>
+                            <TouchableOpacity
+                                hitSlop={{ top: 20, right: 20, bottom: 20, left: 20 }}
+                                onPress={() => {
+                                  dispatch(deleteGame(userObject, gameItem))
+                                  dispatch(loadUser(user.id))
+                                }}
+                            >
+                              <FontAwesome5
+                                  name='times-circle'
+                                  style={{ fontSize: 20, color: 'red' }}
+                              />
+                            </TouchableOpacity>
+                          </View>
                       </View>
                   ))}
               </View>
