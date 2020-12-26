@@ -17,7 +17,6 @@ function Dashboard ({ userObject }: propsInterface) {
           <Text>
               Welcome
               {' '}
-              {' '}
               {userObject?.name}
               !
           </Text>
