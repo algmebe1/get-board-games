@@ -69,3 +69,27 @@ export function addGame (userObject: userObjectInterface, gameItem: gameItemInte
     }
   }
 }
+
+export function updateGameStatus (gameItem: gameItemInterface) {
+  const newObj = { ...gameItem }
+
+  if (newObj.status === false) {
+    newObj.status = true
+  } else {
+    newObj.status = false
+  }
+  return newObj
+}
+
+export function updateGame (gameItem: gameItemInterface) {
+  return async (dispatch: Function) => {
+    const newObj = updateGameStatus(gameItem)
+    const endpoint = `http://192.168.1.36:7777/games/${newObj._id}`
+    try {
+      const updatedGame = await axios.patch(endpoint, newObj)
+      dispatch(requestGameSuccess(updatedGame.data))
+    } catch (error) {
+      dispatch(loadError(error))
+    }
+  }
+}

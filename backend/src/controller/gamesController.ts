@@ -9,7 +9,17 @@ function gamesController (Game: any) {
       error ? res.send(error) : res.json(games)
     })
   }
-  return { getMethod }
+
+  function patchMethod (req: Request, res: Response) {
+    console.log(req)
+    const query = req.params.gameId
+    const body = req.body
+
+    Game.findByIdAndUpdate(query, body, { new: true, useFindAndModify: false }, (error, game) => {
+      error ? res.send(error) : res.json(game)
+    })
+  }
+  return { getMethod, patchMethod }
 }
 
 module.exports = gamesController

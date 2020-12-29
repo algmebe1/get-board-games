@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react'
-import { StyleSheet, ScrollView, Text, View, Image } from 'react-native'
+import { StyleSheet, ScrollView, Text, View, Image, Alert } from 'react-native'
 import { useIsFocused } from '@react-navigation/native'
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5'
 import { Button } from 'react-native-elements'
@@ -8,7 +8,7 @@ import BackButton from '../Header/BackButton/BackButton'
 import { connect } from 'react-redux'
 import { propsInterface } from '../../interfaces/interfaces'
 import HomeButton from '../Header/HomeButton/HomeButton'
-import { addGame } from '../../redux/actions/gameActions'
+import { addGame, updateGame } from '../../redux/actions/gameActions'
 
 const styles = StyleSheet.create({
   navButtons: {
@@ -106,17 +106,45 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
     alignItems: 'center'
+  },
+  gameAddedContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    borderWidth: 2,
+    borderColor: '#16bc00',
+    padding: 8,
+    borderRadius: 10
+  },
+  gameAddedText: {
+    color: '#16bc00',
+    fontWeight: 'bold'
+  },
+  checkIcon: {
+    paddingRight: 10,
+    fontSize: 20,
+    color: '#16bc00'
   }
 
 })
 
 function GameDetail ({ route: { params: { gameItem } }, userObject, dispatch }: propsInterface) {
   const detailScrollRef = useRef(null)
-
   const isFocused = useIsFocused()
+
+  const checkFavourites = userObject?.favourites.some(i => i.name.includes(gameItem.name))
   useEffect(() => {
     detailScrollRef.current.scrollTo({ x: 0, y: 0, animated: false })
   }, [isFocused])
+
+  useEffect(() => {
+  }, [])
+
+  function GameAdded () {
+    Alert.alert(
+      'Game Added', `${gameItem?.name} has been added to your favourites`, [{ text: 'OK' }]
+    )
+  }
 
   return (
       <ScrollView
@@ -174,22 +202,36 @@ function GameDetail ({ route: { params: { gameItem } }, userObject, dispatch }: 
                       </View>
                   </View>
                   <View style={styles.buttonContainer}>
-                      <Button
-                          icon={
+                    {checkFavourites ? (
+                      <View style={styles.gameAddedContainer}>
+                        <FontAwesome5
+                            name='check'
+                            style={styles.checkIcon}
+                        />
+                      <Text style={styles.gameAddedText}>
+
+This game is already added
+                      </Text>
+                      </View>
+                    )
+                      : (<Button
+                              icon={
                               <Icon
                                   color="white"
                                   name="plus"
                                   size={15}
                               />
   }
-                          onPress={() => {
-                            dispatch(addGame(userObject, gameItem))
-                          }}
-                          style={styles.addButton}
+                              onPress={() => {
+                                dispatch(updateGame(gameItem))
+                                dispatch(addGame(userObject, gameItem))
+                                GameAdded()
+                              }}
+                              style={styles.addButton}
 
                           // eslint-disable-next-line react/jsx-props-no-multi-spaces
-                          title="  Add to favourites"
-                      />
+                              title="  Add to favourites"
+                         />)}
                   </View>
               </View>
           </View>
@@ -199,6 +241,7 @@ function GameDetail ({ route: { params: { gameItem } }, userObject, dispatch }: 
 }
 
 function mapStateToProps ({ gameReducer, userReducer }: any) {
+  console.log('MAPSTATETOPROPS:', gameReducer.gameObject)
   return {
     gameItem: gameReducer.gameObject,
     userObject: userReducer.userObject

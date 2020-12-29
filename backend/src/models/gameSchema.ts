@@ -102,7 +102,8 @@ const gameSchema = new Schema({
   primary_designer: {
     type: pdesignerSchema,
     default: {}
-  }
+  },
+  status: { type: Boolean }
 })
 
 module.exports = model('Games', gameSchema)
