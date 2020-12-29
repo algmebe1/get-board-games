@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react'
-import { Text, View, Image, StyleSheet, TextInput, Button } from 'react-native'
+import { Text, View, Image, StyleSheet, TextInput, Button, Keyboard, TouchableWithoutFeedback } from 'react-native'
 import { connect } from 'react-redux'
 import { saveUserChanges, loadUser, deleteGame } from '../../redux/actions/userActions'
+import { updateGame } from '../../redux/actions/gameActions'
 import { propsInterface } from '../../interfaces/interfaces'
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5'
 import { TouchableOpacity } from 'react-native-gesture-handler'
@@ -124,6 +125,17 @@ const styles = StyleSheet.create({
   deleteButton: {
     backgroundColor: 'white',
     padding: 5
+  },
+  emptyListContainer: {
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: '100%'
+  },
+  emptyList: {
+    color: 'gray',
+    fontStyle: 'italic'
   }
 })
 
@@ -137,6 +149,7 @@ function Profile ({ user, userObject, dispatch }: propsInterface) {
   }, [])
 
   return (
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <View style={styles.profileContainer}>
           <View style={styles.imageContainer}>
 
@@ -205,7 +218,8 @@ function Profile ({ user, userObject, dispatch }: propsInterface) {
               <Text style={styles.labelResult}>
                   My favourite games:
               </Text>
-              <View style={styles.gamesView}>
+              {userObject?.favourites.length > 0
+                ? (<View style={styles.gamesView}>
                   {userObject?.favourites.map((gameItem: any) => (
                       <View
                           key={gameItem?.id}
@@ -224,6 +238,7 @@ function Profile ({ user, userObject, dispatch }: propsInterface) {
                             <TouchableOpacity
                                 hitSlop={{ top: 20, right: 20, bottom: 20, left: 20 }}
                                 onPress={() => {
+                                  dispatch(updateGame(gameItem))
                                   dispatch(deleteGame(userObject, gameItem))
                                   dispatch(loadUser(user.id))
                                 }}
@@ -236,9 +251,16 @@ function Profile ({ user, userObject, dispatch }: propsInterface) {
                           </View>
                       </View>
                   ))}
-              </View>
+                   </View>) : (
+                <View style={styles.emptyListContainer}>
+                  <Text style={styles.emptyList}>
+There are not any games added to this list yet
+                  </Text>
+                </View>
+                  )}
           </View>
       </View>
+    </TouchableWithoutFeedback>
   )
 }
 
