@@ -6,7 +6,8 @@ export interface gameItemInterface {
   min_players: number,
   max_players: number,
   min_playtime: number,
-  max_playtime: number
+  max_playtime: number,
+  status: boolean
 }
 
 export interface navigationInterface {
