@@ -113,4 +113,30 @@ describe('gameActions', () => {
       expect(store.getActions()[0].type).toBe(actionTypes.LOAD_ERROR)
     })
   })
+  describe('updateGame', () => {
+    const testData = null
+    let store = null
+    const newObj = [{ id: '12345' }]
+
+    beforeEach(() => {
+      testdata = { bio: 'Skylab mola!' }
+      store = mockStore()
+    })
+
+    afterEach(() => {
+      jest.resetAllMocks()
+    })
+    test('should call axios.patch function without issues and status set to false', async () => {
+      const gameItem = { id: '12345', status: false }
+
+      await store.dispatch(gameActions.updateGame(gameItem))
+      expect(axios.patch).toHaveBeenCalled()
+    })
+    test('should call axios.patch function with issues and status set to true', async () => {
+      const gameItem = { id: '12345', status: true }
+
+      await store.dispatch(gameActions.updateGame(gameItem))
+      expect(axios.patch).toHaveBeenCalled()
+    })
+  })
 })
