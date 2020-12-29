@@ -9,6 +9,8 @@ function gameRouter (Game: any) {
   router.route('/')
     .get(games.getMethod)
 
+  router.route('/:gameId')
+    .patch(games.patchMethod)
   return router
 }
 
