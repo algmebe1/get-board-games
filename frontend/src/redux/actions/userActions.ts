@@ -51,7 +51,7 @@ export function loginGoogle () {
 
 export function loadUser (userId: Object) {
   return async (dispatch: Function) => {
-    const endpoint = `http://192.168.1.36:7777/users/${userId}`
+    const endpoint = `http://192.168.1.51:7777/users/${userId}`
     try {
       const userItem = await axios.get(endpoint)
       dispatch(loadUserSuccess(userItem.data))
@@ -63,7 +63,7 @@ export function loadUser (userId: Object) {
 
 export function sendUser (userInfo: Object) {
   return async (dispatch: Function) => {
-    const endpoint = 'http://192.168.1.36:7777/users/'
+    const endpoint = 'http://192.168.1.51:7777/users/'
     try {
       const userItem = await axios.post(endpoint, userInfo)
       dispatch(sendUserSuccess(userItem.data))
@@ -75,7 +75,7 @@ export function sendUser (userInfo: Object) {
 
 export function saveUserChanges (userId: Object, userDetails: Object) {
   return async (dispatch: Function) => {
-    const endpoint = `http://192.168.1.36:7777/users/${userId}`
+    const endpoint = `http://192.168.1.51:7777/users/${userId}`
     try {
       await axios.patch(endpoint, userDetails)
     } catch (error) {
@@ -97,7 +97,7 @@ export function deleteGameFromFav (userObj: userObjectInterface, gameItem: gameI
 export function deleteGame (userObject: userObjectInterface, gameItem: gameItemInterface) {
   return async (dispatch: Function) => {
     const newObj = deleteGameFromFav(userObject, gameItem)
-    const endpoint = `http://192.168.1.36:7777/users/deletefromfavourites/${newObj._id}`
+    const endpoint = `http://192.168.1.51:7777/users/deletefromfavourites/${newObj._id}`
     try {
       await axios.patch(endpoint, { favourites: newObj.favourites })
     } catch (error) {
