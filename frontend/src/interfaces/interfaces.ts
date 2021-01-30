@@ -44,5 +44,7 @@ export interface userObjectInterface {
 }
 
 export interface user {
-  id: string
+  id: string,
+  name: string,
+  photoUrl: string
 }
