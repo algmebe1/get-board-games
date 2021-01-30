@@ -3,6 +3,7 @@ import { View, Text, Button, StyleSheet, ImageBackground, Image } from 'react-na
 import { connect } from 'react-redux'
 import { loginGoogle, sendUser, loadUser } from '../../redux/actions/userActions'
 import Icon from 'react-native-vector-icons/FontAwesome5'
+import { propsInterface } from '../../interfaces/interfaces'
 
 const styles = StyleSheet.create({
   container: {
@@ -32,18 +33,18 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   welcomeText: {
-    fontFamily: 'serif',
+    fontFamily: 'Arial',
     fontSize: 20,
     marginBottom: 50
   }
 })
 
-function LoginWithGoogle ({ dispatch, user, navigation }: props) {
+function LoginWithGoogle ({ dispatch, user, navigation }: propsInterface) {
   function handleLoggingClick () {
     dispatch(loginGoogle())
   }
   useEffect(() => {
-    if (user.id) {
+    if (user?.id) {
       dispatch(sendUser({ id: user?.id, name: user?.name, photoUrl: user?.photoUrl }))
       dispatch(loadUser(user?.id))
       navigation.navigate('Application', { screen: 'List' })
