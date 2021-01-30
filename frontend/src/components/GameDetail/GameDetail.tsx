@@ -1,5 +1,5 @@
-import React, { useEffect, useRef } from 'react'
-import { StyleSheet, ScrollView, Text, View, Image, Alert } from 'react-native'
+import React, { useEffect, useRef, useState } from 'react'
+import { StyleSheet, ScrollView, Text, View, Image, Alert, ActivityIndicator } from 'react-native'
 import { useIsFocused } from '@react-navigation/native'
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5'
 import { Button } from 'react-native-elements'
@@ -103,7 +103,7 @@ const styles = StyleSheet.create({
   },
 
   addButton: {
-    flex: 1,
+    display: 'flex',
     flexDirection: 'row',
     alignItems: 'center'
   },
@@ -131,6 +131,7 @@ const styles = StyleSheet.create({
 function GameDetail ({ route: { params: { gameItem } }, userObject, dispatch }: propsInterface) {
   const detailScrollRef = useRef(null)
   const isFocused = useIsFocused()
+  const [loaded, setLoading] = useState(false)
 
   const checkFavourites = userObject?.favourites.some(i => i.name.includes(gameItem.name))
   useEffect(() => {
@@ -138,7 +139,14 @@ function GameDetail ({ route: { params: { gameItem } }, userObject, dispatch }: 
   }, [isFocused])
 
   useEffect(() => {
-  }, [])
+    setTimeout(() => setLoading(true), 100)
+  })
+
+  useEffect(() => {
+    return function cleanLoading () {
+      setLoading(false)
+    }
+  }, [gameItem])
 
   function GameAdded () {
     Alert.alert(
@@ -153,11 +161,12 @@ function GameDetail ({ route: { params: { gameItem } }, userObject, dispatch }: 
       >
           <View />
           <View style={styles.imageContainer}>
-              <Image
-                  resizeMode='contain'
-                  source={{ uri: gameItem?.images.original }}
-                  style={{ width: 300, height: 300 }}
-              />
+            {loaded
+              ? <Image
+                      resizeMode='contain'
+                      source={{ uri: gameItem?.images.original, cache: 'force-cache'}}
+                      style={{ width: 300, height: 300 }}
+                /> : <ActivityIndicator />}
           </View>
           <View style={styles.navButtons}>
               <BackButton />
@@ -241,7 +250,6 @@ This game is already added
 }
 
 function mapStateToProps ({ gameReducer, userReducer }: any) {
-  console.log('MAPSTATETOPROPS:', gameReducer.gameObject)
   return {
     gameItem: gameReducer.gameObject,
     userObject: userReducer.userObject
