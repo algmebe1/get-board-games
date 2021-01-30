@@ -11,7 +11,7 @@ import LoadingSpinner from '../LoadingSpinner/LoadingSpinner'
 const styles = StyleSheet.create({
   sectionTitle: {
     fontSize: 30,
-    fontFamily: 'sans-serif-condensed',
+    fontFamily: 'Arial',
     padding: 10
   },
 
@@ -81,7 +81,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     fontSize: 15,
     fontWeight: 'bold',
-    fontFamily: 'Roboto'
+    fontFamily: 'HelveticaNeue-Medium'
   },
   gameDescription: {
     flexShrink: 1,
