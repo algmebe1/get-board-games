@@ -1,7 +1,7 @@
 /* eslint-disable no-case-declarations */
 import actionTypes from '../actions/actionTypes'
 
-export default function userReducer (state = {}, action: any):any {
+export default function userReducer (state = {}, action: any): any {
   let newState
   switch (action.type) {
     case actionTypes.LOAD_USER:
@@ -18,6 +18,9 @@ export default function userReducer (state = {}, action: any):any {
       break
     case actionTypes.LOAD_ERROR:
       newState = { ...state, error: action.error }
+      break
+    case actionTypes.LOAD_FAVOURITES:
+      newState = { ...state, userObject: action.favouritesArray }
       break
     default:
       newState = { ...state }
