@@ -6,6 +6,7 @@ interface actionTypesStore {
   LOGIN_USER_GOOGLE: string,
   LOGOUT_USER: string,
   LOAD_ERROR: string,
+  LOAD_FAVOURITES: string,
 }
 
 const actionTypes: actionTypesStore = {
@@ -15,7 +16,8 @@ const actionTypes: actionTypesStore = {
   SEND_USER: 'SEND_USER',
   LOGIN_USER_GOOGLE: 'LOGIN_USER_GOOGLE',
   LOGOUT_USER: 'LOGOUT_USER',
-  LOAD_ERROR: 'LOAD_ERROR'
+  LOAD_ERROR: 'LOAD_ERROR',
+  LOAD_FAVOURITES: 'LOAD_FAVOURITES'
 }
 
 export default actionTypes
