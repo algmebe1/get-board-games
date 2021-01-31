@@ -23,7 +23,6 @@ function userController (User: any) {
   }
 
   function deleteMethod (req: Request, res: Response) {
-    console.log(req)
     const query = req.params.userId
     const body = req.body
 
