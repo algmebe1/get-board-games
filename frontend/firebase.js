@@ -12,7 +12,7 @@ export const firebaseConfig = {
 export default async function signinWithGoogle () {
   try {
     const result = await Google.logInAsync({
-      // androidClientId: '238927777970-a1kpfmgvun7dl981fb8fbvv5i23h127i.apps.googleusercontent.com',
+      androidClientId: '238927777970-a1kpfmgvun7dl981fb8fbvv5i23h127i.apps.googleusercontent.com',
       iosClientId: '238927777970-1lo7k2piqjb3rgasuaij2h4eiuf17mbi.apps.googleusercontent.com',
       scopes: ['profile', 'email']
     })
