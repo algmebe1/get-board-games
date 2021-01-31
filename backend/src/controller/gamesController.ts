@@ -11,7 +11,6 @@ function gamesController (Game: any) {
   }
 
   function patchMethod (req: Request, res: Response) {
-    console.log(req)
     const query = req.params.gameId
     const body = req.body
 
