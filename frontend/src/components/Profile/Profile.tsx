@@ -148,117 +148,121 @@ function Profile ({ user, userObject, dispatch }: propsInterface) {
     dispatch(loadUser(user.id))
   }, [])
 
+  useEffect(() => {
+
+  })
+
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <View style={styles.profileContainer}>
-          <View style={styles.imageContainer}>
+        <View style={styles.imageContainer}>
 
-              <Image
-                  source={{ uri: userObject?.photoUrl }}
-                  style={{ width: 150, height: 150 }}
-              />
-              <View style={styles.personalInfo}>
-                  <TextInput
-                      onChangeText={text => onChangeTextUsername(text)}
-                      placeholder="Type you username!"
-                      style={styles.usernameInput}
-                      value={valueUsername}
-                  />
-                  <View>
+          <Image
+              source={{ uri: userObject?.photoUrl }}
+              style={{ width: 150, height: 150 }}
+          />
+          <View style={styles.personalInfo}>
+            <TextInput
+                onChangeText={text => onChangeTextUsername(text)}
+                placeholder="Type you username!"
+                style={styles.usernameInput}
+                value={valueUsername}
+            />
+            <View>
 
-                      <Text style={styles.name}>
-                          Name:
+              <Text style={styles.name}>
+                Name:
                           {' '}
-                      </Text>
-                      <Text style={{ fontWeight: 'bold', fontSize: 12 }}>
+              </Text>
+              <Text style={{ fontWeight: 'bold', fontSize: 12 }}>
 
-                          {userObject?.name}
-                      </Text>
-                  </View>
-                  <View style={styles.cityContainer}>
-                      <Text style={styles.labelResult}>
-                          Location:
-                          {' '}
-                      </Text>
-                      <TextInput
-                          onChangeText={text => onChangeTextCity(text)}
-                          placeholder="Type your city..."
-                          style={styles.cityInput}
-                          value={valueCity}
-                      />
-
-                  </View>
-              </View>
-          </View>
-          <View style={styles.bioContainer}>
+                {userObject?.name}
+              </Text>
+            </View>
+            <View style={styles.cityContainer}>
               <Text style={styles.labelResult}>
-                  BIO:
+                Location:
+                          {' '}
               </Text>
               <TextInput
-                  multiline
-                  numberOfLines={4}
-                  onChangeText={text => onChangeTextUserBio(text)}
-                  placeholder=" Describe about yourself... in 4 lines!"
-                  style={{ height: 80 }}
-                  value={valueBio}
+                  onChangeText={text => onChangeTextCity(text)}
+                  placeholder="Type your city..."
+                  style={styles.cityInput}
+                  value={valueCity}
               />
+
+            </View>
           </View>
-          <View style={{ marginTop: 20 }}>
+        </View>
+        <View style={styles.bioContainer}>
+          <Text style={styles.labelResult}>
+            BIO:
+          </Text>
+          <TextInput
+              multiline
+              numberOfLines={4}
+              onChangeText={text => onChangeTextUserBio(text)}
+              placeholder=" Describe about yourself... in 4 lines!"
+              style={{ height: 80 }}
+              value={valueBio}
+          />
+        </View>
+        <View style={{ marginTop: 20 }}>
 
-              <Button
-                  onPress={() => {
-                    dispatch(saveUserChanges(userObject?._id, { username: valueUsername, location: valueCity, bio: valueBio }))
-                  }}
-                  title="Save changes"
-              />
-          </View>
-          <View style={{ width: '90%', height: 1, backgroundColor: 'black', margin: 20 }} />
+          <Button
+              onPress={() => {
+                dispatch(saveUserChanges(userObject?._id, { username: valueUsername, location: valueCity, bio: valueBio }))
+              }}
+              title="Save changes"
+          />
+        </View>
+        <View style={{ width: '90%', height: 1, backgroundColor: 'black', margin: 20 }} />
 
-          <View style={styles.favGames}>
-              <Text style={styles.labelResult}>
-                  My favourite games:
-              </Text>
-              {userObject?.favourites.length > 0
-                ? (<View style={styles.gamesView}>
-                  {userObject?.favourites.map((gameItem: any) => (
-                      <View
-                          key={gameItem?.id}
-                          style={styles.gameViewItem}
-                      >
-                          <Image
-                              resizeMode='contain'
-                              source={{ uri: gameItem?.images?.small }}
-                              style={{ width: 75, height: 75 }}
-                          />
+        <View style={styles.favGames}>
+          <Text style={styles.labelResult}>
+            My favourite games:
+          </Text>
+          {userObject?.favourites.length > 0
+            ? (<View style={styles.gamesView}>
+              {userObject?.favourites.map((gameItem: any) => (
+                <View
+                    key={gameItem?.id}
+                    style={styles.gameViewItem}
+                >
+                  <Image
+                      resizeMode='contain'
+                      source={{ uri: gameItem?.images?.small }}
+                      style={{ width: 75, height: 75 }}
+                  />
 
-                          <Text style={styles.gameNameLabel}>
-                              {gameItem?.name}
-                          </Text>
-                          <View style={styles.deleteButton}>
-                            <TouchableOpacity
-                                hitSlop={{ top: 20, right: 20, bottom: 20, left: 20 }}
-                                onPress={() => {
-                                  dispatch(updateGame(gameItem))
-                                  dispatch(deleteGame(userObject, gameItem))
-                                  dispatch(loadUser(user.id))
-                                }}
-                            >
-                              <FontAwesome5
-                                  name='times-circle'
-                                  style={{ fontSize: 20, color: 'red' }}
-                              />
-                            </TouchableOpacity>
-                          </View>
-                      </View>
-                  ))}
-                   </View>) : (
-                <View style={styles.emptyListContainer}>
-                  <Text style={styles.emptyList}>
-There are not any games added to this list yet
+                  <Text style={styles.gameNameLabel}>
+                    {gameItem?.name}
                   </Text>
+                  <View style={styles.deleteButton}>
+                    <TouchableOpacity
+                        hitSlop={{ top: 25, right: 25, bottom: 25, left: 25 }}
+                        onPress={() => {
+                          dispatch(updateGame(gameItem))
+                          dispatch(deleteGame(userObject, gameItem))
+                          dispatch(loadUser(user.id))
+                        }}
+                    >
+                      <FontAwesome5
+                          name='times-circle'
+                          style={{ fontSize: 20, color: 'red' }}
+                      />
+                    </TouchableOpacity>
+                  </View>
                 </View>
-                  )}
-          </View>
+              ))}
+               </View>) : (
+              <View style={styles.emptyListContainer}>
+                <Text style={styles.emptyList}>
+                  There are not any games added to this list yet
+                </Text>
+              </View>
+              )}
+        </View>
       </View>
     </TouchableWithoutFeedback>
   )
