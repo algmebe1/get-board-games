@@ -38,6 +38,13 @@ function loadError (error: any) {
   }
 }
 
+function updateFavourites (favouritesArray: Object[]) {
+  return {
+    type: actionTypes.LOAD_FAVOURITES,
+    favouritesArray
+  }
+}
+
 export function loginGoogle () {
   return async (dispatch: Function) => {
     try {
@@ -88,8 +95,6 @@ export function deleteGameFromFav (userObj: userObjectInterface, gameItem: gameI
   const newObj = { ...userObj }
 
   const gamePosition = newObj.favourites.findIndex(element => element.id === gameItem.id)
-  console.log(gameItem.id)
-  console.log(gamePosition)
   newObj.favourites.splice(gamePosition, 1)
   return newObj
 }
@@ -100,6 +105,7 @@ export function deleteGame (userObject: userObjectInterface, gameItem: gameItemI
     const endpoint = `http://192.168.1.51:7777/users/deletefromfavourites/${newObj._id}`
     try {
       await axios.patch(endpoint, { favourites: newObj.favourites })
+      dispatch(updateFavourites(newObj))
     } catch (error) {
       dispatch(loadError(error))
     }
