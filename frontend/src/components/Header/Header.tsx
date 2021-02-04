@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { View, StyleSheet, Image, TouchableOpacity, StatusBar } from 'react-native'
 import { connect } from 'react-redux'
 import { propsInterface } from '../../interfaces/interfaces'
@@ -47,6 +47,11 @@ const styles = StyleSheet.create({
 })
 
 function HeaderApp ({ userObject, dispatch }: propsInterface) {
+  useEffect(() => {
+    if (userObject === null) {
+      dispatch(logoutUser(userObject))
+    }
+  })
   return (
       <View style={styles.header}>
           <StatusBar hidden />
@@ -56,7 +61,7 @@ function HeaderApp ({ userObject, dispatch }: propsInterface) {
                   source={{ uri: 'https://trello-attachments.s3.amazonaws.com/5fbbdffec6c8c916bd924758/658x652/89ee36969caa01ee422982a49f59fc06/GBG-logo-white.png' }}
                   style={styles.logo}
               />
-              {userObject
+              {userObject !== null
                 ? (<View style={styles.userOptions}>
                     <TouchableOpacity
                         onPress={() => RootNavigation.navigate('Profile', { userObject })}
@@ -87,6 +92,7 @@ function HeaderApp ({ userObject, dispatch }: propsInterface) {
 }
 
 function mapStateToProps ({ userReducer }: any) {
+  console.log('MAPSTATETOPROPS ----> HEADER', userReducer?.userObject)
   return {
     userObject: userReducer?.userObject
   }
