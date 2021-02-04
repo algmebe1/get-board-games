@@ -115,16 +115,21 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     alignItems: 'center',
     width: '100%',
-    margin: 0,
-    justifyContent: 'center'
+    marginBottom: 20,
+    justifyContent: 'center',
+    position: 'relative'
   },
   gameNameLabel: {
     fontSize: 10,
-    fontWeight: 'bold'
+    fontWeight: 'bold',
+    marginTop: 5,
+    marginBottom: 5
   },
   deleteButton: {
-    backgroundColor: 'white',
-    padding: 5
+    /* backgroundColor: 'white', */
+    padding: 5,
+    position: 'absolute',
+    top: 90
   },
   emptyListContainer: {
     display: 'flex',
@@ -145,12 +150,10 @@ function Profile ({ user, userObject, dispatch }: propsInterface) {
   const [valueCity, onChangeTextCity] = useState('' || userObject?.location)
 
   useEffect(() => {
-    dispatch(loadUser(user.id))
-  }, [])
-
-  useEffect(() => {
-
-  })
+    if (userObject) {
+      dispatch(loadUser(user.id))
+    }
+  }, [userObject?.favourites.length])
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -242,8 +245,8 @@ function Profile ({ user, userObject, dispatch }: propsInterface) {
                     <TouchableOpacity
                         hitSlop={{ top: 25, right: 25, bottom: 25, left: 25 }}
                         onPress={() => {
-                          dispatch(updateGame(gameItem))
                           dispatch(deleteGame(userObject, gameItem))
+                          dispatch(updateGame(gameItem))
                           dispatch(loadUser(user.id))
                         }}
                     >
