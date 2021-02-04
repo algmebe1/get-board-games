@@ -92,7 +92,6 @@ function HeaderApp ({ userObject, dispatch }: propsInterface) {
 }
 
 function mapStateToProps ({ userReducer }: any) {
-  console.log('MAPSTATETOPROPS ----> HEADER', userReducer?.userObject)
   return {
     userObject: userReducer?.userObject
   }
