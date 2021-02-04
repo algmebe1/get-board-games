@@ -13,7 +13,7 @@ const userRouter = require('./routes/userRouter')(User)
 
 const app = express()
 const port = process.env.PORT || 7777
-const dbUrl = process.env.DBURL || 'mongodb+srv://algmebe1:tM5ttUIkO2EVzFZl@getboardgamescluster.bektw.mongodb.net/boardgamesdb?retryWrites=true&w=majority'
+const dbUrl = process.env.DBURL || 'mongodb+srv://algmebe1:vwT0TiXjxBXwyNNp@getboardgamescluster.bektw.mongodb.net/boardgamesdb?retryWrites=true&w=majority'
 
 mongoose.connect(dbUrl, { useNewUrlParser: true, useUnifiedTopology: true })
 
