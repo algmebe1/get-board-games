@@ -61,7 +61,7 @@ function HeaderApp ({ userObject, dispatch }: propsInterface) {
                   source={{ uri: 'https://trello-attachments.s3.amazonaws.com/5fbbdffec6c8c916bd924758/658x652/89ee36969caa01ee422982a49f59fc06/GBG-logo-white.png' }}
                   style={styles.logo}
               />
-              {userObject !== null
+              {userObject
                 ? (<View style={styles.userOptions}>
                     <TouchableOpacity
                         onPress={() => RootNavigation.navigate('Profile', { userObject })}
