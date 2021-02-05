@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/ban-types */
+/* eslint-disable camelcase */
 export interface gameItemInterface {
   id: string,
   name: string,
@@ -24,7 +26,15 @@ export interface images {
 
 export interface propsInterface {
   gameItem?: gameItemInterface,
-  gameCollection?: Object[]
+  gameCollection?: {
+    id: string,
+    images: {small: string},
+    name: string,
+    description_preview: string,
+    min_players: number,
+    max_players: number,
+    min_playtime: number,
+    max_playtime: number}[]
   dispatch: Function,
   navigation: navigationInterface,
   user: user,
