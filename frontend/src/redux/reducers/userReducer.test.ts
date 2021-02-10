@@ -57,6 +57,18 @@ describe('userReducer', () => {
       )
     })
 
+    test('should handle LOAD_FAVOURITES', () => {
+      const favouritesArray = [{id: '123'}]
+      expect(reducer({}, {
+        type: actionTypes.LOAD_FAVOURITES,
+        favouritesArray
+      })).toEqual(
+        {
+          userObject: favouritesArray
+        }
+      )
+    })
+
     test('should handle LOAD_ERROR', () => {
       const error = { error: 'error 404' }
       expect(reducer({}, {
