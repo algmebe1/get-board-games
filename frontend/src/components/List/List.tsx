@@ -130,7 +130,7 @@ function List ({ gameCollection, dispatch, navigation }: propsInterface) {
   }
 
   return (
-    <View>
+    <View testID="games-list">
           { gameCollection
             ? (
               <View>
@@ -155,6 +155,7 @@ function List ({ gameCollection, dispatch, navigation }: propsInterface) {
                                       navigation.navigate('GameDetail', { gameItem })
                                     }}
                                     style={styles.gameContainer}
+                                    testID="toGameDetail"
                                 >
                                     <View>
                                         <Image
