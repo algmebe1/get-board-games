@@ -4,7 +4,6 @@ import { fireEvent, render } from '@testing-library/react-native'
 import { Provider } from 'react-redux'
 import configureStore from 'redux-mock-store'
 import List from './List'
-import gameReducer from '../../redux/reducers/gameReducer'
 
 jest.mock('@react-navigation/native')
 
@@ -50,16 +49,16 @@ describe('List', () => {
 
   // THE FOLLOWING TEST MUST BE REVIEWED. DOES NOT WORK PROPERLY.
 
-  test('should be rendered without issues', async () => {
+  test('should be to press button to go to GameDetail component', async () => {
+    const initialState = { gameReducer: { gameArray: [{ id: '1', images: { small: 'abc' } }, { id: '2', images: { small: 'def' } }, { id: '3', images: { small: 'ghi' } }] } }
+    const wrapper = wrapperFactory(initialState)
     const navigation = { navigate: jest.fn() }
-    const gameCollection = [{ id: '1', images: { small: 'abc' } }, { id: '2', images: { small: 'def' } }, { id: '3', images: { small: 'ghi' } }]
 
     const { getByTestId } = render(<List
-        gameCollection={gameCollection}
         navigation={navigation}
-                                   />)
+                                   />, { wrapper })
 
-    const button = getByTestId('toGameDetail')
+    const button = getByTestId('to-game-detail')
     await fireEvent.press(button)
     expect(button).toBeDefined()
   })
