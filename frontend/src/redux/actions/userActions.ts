@@ -1,7 +1,7 @@
 import axios from 'axios'
 import actionTypes from './actionTypes'
 import signInWithGoogle from '../../../firebase.js'
-import { gameItemInterface } from '../../interfaces/interfaces'
+import { gameItemInterface, userObjectInterface } from '../../interfaces/interfaces'
 
 function loginGoogleSuccess (user: Object) {
   return {
