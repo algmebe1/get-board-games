@@ -47,7 +47,7 @@ function LoginWithGoogle ({ dispatch, user, navigation }: propsInterface) {
     if (user?.id) {
       dispatch(sendUser({ id: user?.id, name: user?.name, photoUrl: user?.photoUrl }))
       dispatch(loadUser(user?.id))
-      navigation.navigate('Application', { screen: 'List' })
+      navigation.navigate('Application', { screen: 'Dashboard' })
     } else {
       navigation.navigate('LoginWithGoogle')
     }
