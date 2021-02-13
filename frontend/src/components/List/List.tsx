@@ -10,8 +10,8 @@ import LoadingSpinner from '../LoadingSpinner/LoadingSpinner'
 
 const styles = StyleSheet.create({
   sectionTitle: {
-    fontSize: 30,
-    fontFamily: 'Arial',
+    fontSize: 25,
+    fontFamily: 'Noteworthy-Bold',
     padding: 10
   },
 
@@ -155,7 +155,7 @@ function List ({ gameCollection, dispatch, navigation }: propsInterface) {
                                       navigation.navigate('GameDetail', { gameItem })
                                     }}
                                     style={styles.gameContainer}
-                                    testID="toGameDetail"
+                                    testID="to-game-detail"
                                 >
                                     <View>
                                         <Image
