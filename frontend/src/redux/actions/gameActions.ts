@@ -27,7 +27,7 @@ function loadError (error: any) {
 
 export function requestGame (gameId: string) {
   return async (dispatch: Function) => {
-    const endpoint = `http://192.168.1.51:7777/games/${gameId}`
+    const endpoint = `http://192.168.1.100:7777/games/${gameId}`
     try {
       const gameItem = await axios.get(endpoint)
       dispatch(requestGameSuccess(gameItem.data))
@@ -39,7 +39,7 @@ export function requestGame (gameId: string) {
 
 export function requestAllGames () {
   return async (dispatch: Function) => {
-    const endpoint = 'http://192.168.1.51:7777/games/'
+    const endpoint = 'http://192.168.1.100:7777/games/'
     try {
       const gameCollection = await axios.get(endpoint)
       dispatch(requestAllGamesSuccess(gameCollection.data))
@@ -61,7 +61,7 @@ export function addGameToFav (userObj: userObjectInterface, gameItem: gameItemIn
 export function addGame (userObject: userObjectInterface, gameItem: gameItemInterface) {
   return async (dispatch: Function) => {
     const newObj = addGameToFav(userObject, gameItem)
-    const endpoint = `http://192.168.1.51:7777/users/favourites/${newObj.id}`
+    const endpoint = `http://192.168.1.100:7777/users/favourites/${newObj.id}`
     try {
       await axios.patch(endpoint, { favourites: newObj.favourites })
     } catch (error) {
@@ -84,7 +84,7 @@ export function updateGameStatus (gameItem: gameItemInterface) {
 export function updateGame (gameItem: gameItemInterface) {
   return async (dispatch: Function) => {
     const newObj = updateGameStatus(gameItem)
-    const endpoint = `http://192.168.1.51:7777/games/${newObj._id}`
+    const endpoint = `http://192.168.1.100:7777/games/${newObj._id}`
     try {
       const updatedGame = await axios.patch(endpoint, newObj)
       dispatch(requestGameSuccess(updatedGame.data))

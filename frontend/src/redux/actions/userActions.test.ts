@@ -83,7 +83,7 @@ describe('userActions', () => {
     test('resolved and call axios.patch function', async () => {
       const userId = '12345'
       const userDetails = { bio: 'Skylab mola!' }
-      const endpoint = 'http://192.168.1.51:7777/users/12345'
+      const endpoint = 'http://192.168.1.100:7777/users/12345'
       axios.patch = jest.fn()
 
       await store.dispatch(userActions.saveUserChanges(userId, userDetails))
