@@ -8,7 +8,11 @@ module.exports = {
     'plugin:react/all',
     'plugin:@typescript-eslint/eslint-recommended',
     'plugin:@typescript-eslint/recommended',
-    'standard'
+    'standard',
+    'eslint:recommended',
+    'plugin:import/errors',
+    'plugin:import/warnings',
+    'plugin:import/typescript'
   ],
   parser: '@typescript-eslint/parser',
   parserOptions: {
