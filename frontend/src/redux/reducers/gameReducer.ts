@@ -1,7 +1,7 @@
 /* eslint-disable no-case-declarations */
 import actionTypes from '../actions/actionTypes'
 
-export default function gameReducer (state = {}, action: any) {
+export default function gameReducer (state = {}, action: any): any {
   let newState
   switch (action.type) {
     case actionTypes.LOAD_GAME:
