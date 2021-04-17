@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/ban-types */
 /* eslint-disable camelcase */
 export interface gameItemInterface {
+  _id: string,
   id: string,
   name: string,
   images: images,
@@ -9,6 +10,7 @@ export interface gameItemInterface {
   max_players: number,
   min_playtime: number,
   max_playtime: number,
+  rank: number,
   status: boolean
 }
 
