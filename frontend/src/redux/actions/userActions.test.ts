@@ -12,8 +12,8 @@ jest.mock('../../../firebase.js')
 
 describe('userActions', () => {
   describe('sendUser function should be called with a promise...', () => {
-    let testData = null
-    let store = null
+    let testData: any
+    let store: any
 
     beforeEach(() => {
       testData = { user: 'Skylab mola!' }
@@ -25,14 +25,14 @@ describe('userActions', () => {
     })
 
     test('resolved and call axios.post function', async () => {
-      const userId = '12345'
+      const userId = { id: '12345', name: 'Skylab mola', photoUrl: 'This is a photo' }
       axios.post = jest.fn().mockResolvedValueOnce(testData)
       await store.dispatch(userActions.sendUser(userId))
 
       expect(store.getActions()[0].type).toBe(actionTypes.SEND_USER)
     })
     test('resolved and call loadError function', async () => {
-      const userId = null
+      const userId = { id: '12345', name: 'Skylab mola', photoUrl: 'This is a photo' }
       axios.post = jest.fn().mockRejectedValueOnce(testData)
       await store.dispatch(userActions.sendUser(userId))
 
@@ -40,8 +40,8 @@ describe('userActions', () => {
     })
   })
   describe('loadUser function should be called with a promise...', () => {
-    let testData = null
-    let store = null
+    let testData: any
+    let store: any
 
     beforeEach(() => {
       testData = { user: 'Skylab mola!' }
@@ -60,7 +60,7 @@ describe('userActions', () => {
       expect(store.getActions()[0].type).toBe(actionTypes.LOAD_USER)
     })
     test('rejected and call loadError function', async () => {
-      const userId = null
+      const userId = '12345'
       axios.get = jest.fn().mockRejectedValueOnce(testData)
       await store.dispatch(userActions.loadUser(userId))
 
@@ -68,8 +68,8 @@ describe('userActions', () => {
     })
   })
   describe('saveUserChanges function should be called with a promise...', () => {
-    let testData = null
-    let store = null
+    let testData: any
+    let store: any
 
     beforeEach(() => {
       testData = { bio: 'Skylab mola!' }
@@ -82,8 +82,8 @@ describe('userActions', () => {
 
     test('resolved and call axios.patch function', async () => {
       const userId = '12345'
-      const userDetails = { bio: 'Skylab mola!' }
-      const endpoint = 'http://192.168.1.100:7777/users/12345'
+      const userDetails = { username: 'Ironman', location: 'Barcelona', bio: 'Skylab mola!' }
+      const endpoint = 'http://192.168.1.51:7777/users/12345'
       axios.patch = jest.fn()
 
       await store.dispatch(userActions.saveUserChanges(userId, userDetails))
@@ -91,16 +91,17 @@ describe('userActions', () => {
       expect(axios.patch).toHaveBeenCalledWith(endpoint, userDetails)
     })
     test('rejected and call loadError function', async () => {
-      const userId = null
+      const userId = '12345'
+      const userDetails = { username: 'Ironman', location: 'Barcelona', bio: 'Skylab mola!' }
       axios.patch = jest.fn().mockRejectedValueOnce(testData)
-      await store.dispatch(userActions.saveUserChanges(userId))
+      await store.dispatch(userActions.saveUserChanges(userId, userDetails))
 
       expect(store.getActions()[0].type).toBe(actionTypes.LOAD_ERROR)
     })
   })
 
   describe('loginGoogle function should be called with a promise...', () => {
-    let store = null
+    let store: any
 
     beforeEach(() => {
       store = mockStore()
@@ -137,12 +138,9 @@ describe('userActions', () => {
   })
 
   describe('deleteGame', () => {
-    const testData = null
-    let store = null
-    const newObj = [{ id: '12345' }]
+    let store: any
 
     beforeEach(() => {
-      testdata = { bio: 'Skylab mola!' }
       store = mockStore()
     })
 
