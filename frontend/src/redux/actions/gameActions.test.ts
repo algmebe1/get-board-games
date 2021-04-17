@@ -10,8 +10,8 @@ jest.mock('axios')
 
 describe('gameActions', () => {
   describe('requestGame function should be called with a promise...', () => {
-    let testData = null
-    let store = null
+    let testData: any
+    let store: any
 
     beforeEach(() => {
       testData = { data: 'Skylab mola!' }
@@ -30,7 +30,7 @@ describe('gameActions', () => {
       expect(store.getActions()[0].type).toBe(actionTypes.LOAD_GAME)
     })
     test('rejected and return an error', async () => {
-      const gameId = null
+      const gameId = 'null'
 
       axios.get = jest.fn().mockRejectedValueOnce(testData)
       await store.dispatch(gameActions.requestGame(gameId))
@@ -39,8 +39,8 @@ describe('gameActions', () => {
   })
 
   describe('requestAllGames function should be called with a promise...', () => {
-    let testData = null
-    let store = null
+    let testData: any
+    let store: any
 
     beforeEach(() => {
       testData = { data: [{ name: 'Skylab mola!' }] }
@@ -73,12 +73,9 @@ describe('gameActions', () => {
     })
   })
   describe('addGame', () => {
-    let testData = null
-    let store = null
-    const newObj = [{ id: '12345' }]
+    let store: any
 
     beforeEach(() => {
-      testData = { bio: 'Skylab mola!' }
       store = mockStore()
     })
 
@@ -114,12 +111,9 @@ describe('gameActions', () => {
     })
   })
   describe('updateGame', () => {
-    const testData = null
-    let store = null
-    const newObj = [{ id: '12345' }]
+    let store: any
 
     beforeEach(() => {
-      testdata = { bio: 'Skylab mola!' }
       store = mockStore()
     })
 
